@@ -4,12 +4,12 @@ title: About
 permalink: /about/
 ---
 
-Some information about you!
+David Joiner: Computational science educator and occasional astrophysicist. Associate Professor at Kean University.
 
 ### More Information
 
-A place to include any other types of information that you'd like to include about yourself.
+This blog hosts projects related to teaching concepts in computational science and visualization, particularly using Unity game engine.
 
 ### Contact me
 
-[email@domain.com](mailto:email@domain.com)
+joinerda at gmail.com
