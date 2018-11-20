@@ -10,16 +10,21 @@ Welcome to the first in a series of blog posts about my experiences using Unity 
 One of the great features of Unity as a tool when working with students is the body of documentation available, much of it in the form of video tutorials on youtube and step by step walkthroughs with code examples. Many of my students started by simply installing the software and going through the "Roll-A-Ball" tutorial. I did find, however, that my students benefited from some in person, specific examples of how to get some basic problems working in the Unity interface.
 Today's post is going to be my "Hello World" for modeling in Unity. Regardless of what modeling tool, language, environment, or interface I am using, the first example I always create is the simple harmonic oscillator. The problem is a classic one in physics education, consider a mass on a spring moved some small amount x from equilibrium. There is a restoring force on the mass that is greater if the distance from equilibrium is greater, and greater if the spring is stiffer (as represented by a spring constant k). The restoring force is written as
 
-$$\vec{F} = - k \vec{x}$$
+$$
+\vec{F} = - k \vec{x}
+$$
 
 Newton's second law states that an object accelerates when there is a non-zero net force acting on it, such that
-a = sum(F) / m
+$a = sum(F) / m$
 But acceleration is just the rate of change of velocity, which gives us the model
 
-dv/dt = -(k/m)   x
+$$
+\frac{dv}{dt} = -(k/m)   x
+$$
 
-dx/dt = v
-
+$$
+\frac{dx}{dt} = v
+$$
 For a first model, this could be approximated using Euler's method
 
 New = Old + Change
@@ -28,10 +33,11 @@ Change = Rate of Change times Timestep
 
 or more rigorously (granted, the phrases rigorously and Euler's method should never be used together, but that's a different post)
 
-
+$$
 y(t+h)=y(t)+f(y,t)h
+$$
 
-where  d/dt y(t)=f(y,t)
+where  $d/dt y(t)=f(y,t)$
 
 The expected behavior is that a simple harmonic oscillator should move back and forth, and that it should move faster for a lighter mass or a stiffer spring.
 To implement this model in Unity, first open a new model. This can be done either as a 3D or a 2D model, it won't change the scripts we write or how we interact with the editor at all.
