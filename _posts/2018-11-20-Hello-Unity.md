@@ -4,7 +4,6 @@ title: Hello Unity
 use_math: true
 ---
 
-Hi! This blog will detail my experiences with using assorted computational tools in the classroom, in particular (but not limited to) using Unity game engine as a modeling and visualization tool, particularly in informal ed and outreach settings.
 
 Welcome to the first in a series of blog posts about my experiences using Unity as a modeling and visualization tool. In summer 2015 my department began a summer immersive research program for students grades 9-12. I spent the first summer performing statistical analysis on exoplanet data with a great group of students, but realized quickly that the program would benefit from activity that had broader scope and fewer prerequisites. We moved summer 2016 to a project developing a version of GalaxSee to run in an Oculus Rift headsetUnity , visualizing small object orbits in a planetary system in virtual reality. Over the course of that summer, subsequent summers, and additional weekly high school computer science club meetings I've extended the set of tools and lessons I've learned in using Unity not just for outreach, but for modeling and visualization with an introductory programming audience.  I've additionally been managing a small undergraduate group to help me develop tools in Unity.
 One of the great features of Unity as a tool when working with students is the body of documentation available, much of it in the form of video tutorials on youtube and step by step walkthroughs with code examples. Many of my students started by simply installing the software and going through the "Roll-A-Ball" tutorial. I did find, however, that my students benefited from some in person, specific examples of how to get some basic problems working in the Unity interface.
@@ -42,15 +41,24 @@ where  $d/dt y(t)=f(y,t)$
 The expected behavior is that a simple harmonic oscillator should move back and forth, and that it should move faster for a lighter mass or a stiffer spring.
 To implement this model in Unity, first open a new model. This can be done either as a 3D or a 2D model, it won't change the scripts we write or how we interact with the editor at all.
 We will start by creating a sphere in the scene. You can use the create menu at the top of the hierarchy panel, you can right click in the hierarchy panel, or you can use the GameObject menu in the editor to do this.
+
+![adding a sphere in unity](/images/blog_2018_11_20/figure1.png)
  
 At some point before you get too far along, go to the file menu and save your scene. Any name is OK. I name my main scenes Main. Save every so often if you make changes to the scene.
 To change the way the object operates in the scene, we want to add a script to the object. In the inspector panel, add a new script component and give it a meaningful name. (I'm going to use the name Oscillator, but you can call yours anything you want.) 
  
- 
- 
+![select sphere in heirarchy](/images/blog_2018_11_20/figure2.png)
 
- 
+![add component in inspector](/images/blog_2018_11_20/figure3.png)
+
+![create new script](/images/blog_2018_11_20/figure4.png)
+
+![name your script](/images/blog_2018_11_20/figure5.png)
+
 Once you create your script, you will see it in the assets window in the Project panel.
+ 
+![Project panel](/images/blog_2018_11_20/figure6.png)
+
  
 Double click on the script to open and edit it.
 Notice that the top of the script includes a bunch of statements at the top of the file that start with the word "using". These statements import existing code libraries that are needed for a standard Unity script. 
@@ -87,6 +95,10 @@ public class Oscillator : MonoBehaviour {
 Let's use the Start routine to set "x" based on the position of the object in the scene. Going back to the Unity editor, select the sphere object in the heirarchy panel and notice what is displayed in the top of the inspector for this object. The first component for the object is the "Transform". A game objects transform provides information about its location, rotation, and scale within the scene.
 Change the x value of the objects position. You can type it in manually, or move the object in the x direction in the scene panel.
  
+ 
+![reset transform in Inspector](/images/blog_2018_11_20/figure7.png)
+
+
 In the script, add lines in Start to access the object's transform's position's x coordinate.
 
 ```
