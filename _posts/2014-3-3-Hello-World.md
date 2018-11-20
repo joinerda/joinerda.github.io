@@ -3,8 +3,5 @@ layout: post
 title: You're up and running!
 ---
 
-Next you can update your site name, avatar and other options using the _config.yml file in the root of your repository (shown below).
+Hi! This blog will detail my experiences with using assorted computational tools in the classroom, in particular (but not limited to) using Unity game engine as a modeling and visualization tool, particularly in informal ed and outreach settings.
 
-![_config.yml]({{ site.baseurl }}/images/config.png)
-
-The easiest way to make your first post is to edit this one. Go into /_posts/ and update the Hello World markdown file. For more instructions head over to the [Jekyll Now repository](https://github.com/barryclark/jekyll-now) on GitHub.
