@@ -220,4 +220,4 @@ For new programmers, notice that in C# we can split a command across lines of co
 Save this and go back to the editor and press the play button.
 If everything worked, your object should be moving back and forth! Try changing k and m and seeing if it affects the motion of your object in the way you expect.
 
-<link href='/files/blog_2018_11_20/UnityPost1.zip'>Click here for the final Unity project</link>
+[Click here for the final Unity project](/files/blog_2018_11_20/UnityPost1.zip)
