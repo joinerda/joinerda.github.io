@@ -15,7 +15,7 @@ $$
 $$
 
 Newton's second law states that an object accelerates when there is a non-zero net force acting on it, such that
-$a = \sum(F) / m$
+$a = \sum F / m$
 But acceleration is just the rate of change of velocity, which gives us the model
 
 $$
