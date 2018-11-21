@@ -41,7 +41,7 @@ $$
 where  $d/dt$ $y(t)=f(y,t)$
 
 The expected behavior is that a simple harmonic oscillator should move back and forth, and that it should move faster for a lighter mass or a stiffer spring.
-To implement this model in Unity, first open a new model. This can be done either as a 3D or a 2D model, it won't change the scripts we write or how we interact with the editor at all.
+To implement this model in Unity, first open a new model. This can be done either as a 3D or a 2D model, it won't change the scripts we write or how we interact with the editor at all for this particular example.
 We will start by creating a sphere in the scene. You can use the create menu at the top of the hierarchy panel, you can right click in the hierarchy panel, or you can use the GameObject menu in the editor to do this.
 
 ![adding a sphere in unity](/images/blog_2018_11_20/figure1.png)
