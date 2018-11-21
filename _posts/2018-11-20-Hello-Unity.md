@@ -38,7 +38,7 @@ $$
 y(t+h)=y(t)+f(y,t)h
 $$
 
-where  $d/dt y(t)=f(y,t)$
+where  $d/dt$ $y(t)=f(y,t)$
 
 The expected behavior is that a simple harmonic oscillator should move back and forth, and that it should move faster for a lighter mass or a stiffer spring.
 To implement this model in Unity, first open a new model. This can be done either as a 3D or a 2D model, it won't change the scripts we write or how we interact with the editor at all.
