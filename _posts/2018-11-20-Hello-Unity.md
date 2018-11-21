@@ -25,6 +25,7 @@ $$
 $$
 \frac{dx}{dt} = v
 $$
+
 For a first model, this could be approximated using Euler's method
 
 New = Old + Change
