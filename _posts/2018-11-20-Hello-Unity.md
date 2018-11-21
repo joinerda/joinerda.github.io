@@ -237,3 +237,5 @@ If everything worked, your object should be moving back and forth! Try changing 
 [Click here for the final Unity project](/files/blog_2018_11_20/UnityPost1.zip)
 
 [Comment on Twitter](https://twitter.com/dajoiner/status/1065093549820137473)
+
+If you didn't get here from there, be sure to check out updated posts from me and others at the [SIGHPC Education Blog](http://sighpceducation.hosting.acm.org/wp/2018/11/21/unity1/)
