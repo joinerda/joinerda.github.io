@@ -5,7 +5,7 @@ use_math: true
 ---
 
 
-[Comment on Twitter](https://twitter.com/dajoiner/status/1065092638649524227)
+[Comment on Twitter](https://twitter.com/dajoiner/status/1065093549820137473)
 
 
 Welcome to the first in a series of blog posts about my experiences using Unity as a modeling and visualization tool. This will cover a "hello world" style program for modeling in Unity, and will introduce the reader to creating a program in the unity interface, adding a game object to the scene, and using a script to control the game object's position.
@@ -239,4 +239,4 @@ If everything worked, your object should be moving back and forth! Try changing 
 
 [Click here for the final Unity project](/files/blog_2018_11_20/UnityPost1.zip)
 
-[Comment on Twitter](https://twitter.com/dajoiner/status/1065092638649524227)
+[Comment on Twitter](https://twitter.com/dajoiner/status/1065093549820137473)
