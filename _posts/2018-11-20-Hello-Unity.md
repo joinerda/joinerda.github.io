@@ -5,7 +5,7 @@ use_math: true
 ---
 
 
-Welcome to the first in a series of blog posts about my experiences using Unity as a modeling and visualization tool. This will cover a "hello world" style program for modeling in Unity, and will introduce the reader to creating a program in the unity interface, adding a game object to the scene, and using a script to control the game object's position.
+Welcome to the first in a series of blog posts about my experiences using [Unity](https://unity3d.com/) as a modeling and visualization tool. This will cover a "hello world" style program for modeling in Unity, and will introduce the reader to creating a program in the unity interface, adding a game object to the scene, and using a script to control the game object's position.
 
 This first post is written assuming an audience new to Unity and not experienced at programming.
 
