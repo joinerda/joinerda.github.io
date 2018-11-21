@@ -7,6 +7,7 @@ use_math: true
 
 Welcome to the first in a series of blog posts about my experiences using Unity as a modeling and visualization tool. This will cover a "hello world" style program for modeling in Unity, and will introduce the reader to creating a program in the unity interface, adding a game object to the scene, and using a script to control the game object's position.
 
+This first post is written assuming an audience new to Unity and not experienced at programming.
 
 Today's post is going to be my "Hello World" for modeling in Unity. Regardless of what modeling tool, language, environment, or interface I am using, the first example I always create is the simple harmonic oscillator. The problem is a classic one in physics education, consider a mass on a spring moved some small amount x from equilibrium. There is a restoring force on the mass that is greater if the distance from equilibrium is greater, and greater if the spring is stiffer (as represented by a spring constant k). The restoring force is written as
 
@@ -63,12 +64,18 @@ Once you create your script, you will see it in the assets window in the Project
 
  
 Double click on the script to open and edit it.
+
 Notice that the top of the script includes a bunch of statements at the top of the file that start with the word "using". These statements import existing code libraries that are needed for a standard Unity script. 
 Following the using statements is a class definition in the form "public ClassName : MonoBehaviour {". This states that the class we've created (in my case ClassName is replaced with Oscillator, it might be different if you named your script something different, but should match the scripts filename) builds off of a base class called MonoBehaviour. MonoBehaviour is the standard class for all Unity game objects, and includes a lot of default behavior, including the ability to provide your own "Start" and "Update" methods. An empty version of these methods are provided, and after their definitions are complete, there is a final closing "}" to end the class definition.
+
 For those of you not used to programming in a C/C++/C#/Java/JavaScript style language, the "{}" characters define a code block. A code block is a command or set of commands that is treated as a single piece of code. Every method we create will be followed by a code block. Every loop and condition will be followed by a code block. For first time programmers, expect to spend a lot of time making sure your "{" and "}" characters match up correctly.
+
 Notice that before each of the method definitions for Start and Update there are some comments. Comments begin with a "//" sequence, and are just notes to the programmer, they don't affect the code at all.
+
 Start and Update are key methods in a MonoBehaviour script. Start is guaranteed to be called once before the object is drawn on the screen the first time during play, and Update will be called exactly once per frame draw.
+
 We will create member variables to store our calculation, and this will be done in double precision. (the difference between double and single precision will be another blog post, but for now just know that double precision (double) numbers have twice the precision of single precision (float) numbers. As a computational scientist you want to use doubles when doing math that should be right, but in game development most variables are stored as floats because rendering floats on most GPUs is fast(er) compared to doubles. The double/float duality should be on your mind a lot when working in Unity.
+
 When creating variables, we can create them inside of a method, and they will be defined just inside the method, or we can create them outside of the methods but inside of the class, and they will be available to the entire class. Class variables are also called "member variables".
 
 ```
@@ -127,8 +134,10 @@ public class Oscillator : MonoBehaviour {
 ```
 
 Note that we don't need to define transform as a member variable as it is already defined as part of MonoBehaviour. Also note the use of the "." period character here. The period is to object oriented programming as 's is to the English language--it indicates possession. If transform has a member variable position, we access it as "transform.position". If in turn position has a member variable "x" we can get that as "transform.position.x".
+
 Here I am using a member variable of type double for the position x in calculation as transform.position.x is a float, not a double.
 We also set the initial velocity to zero.
+
 Our model we want to solve also needs a spring constant and a mass, let's make them both 1 to start, and store them as member variables.
 
 ```
@@ -185,6 +194,7 @@ public class Oscillator : MonoBehaviour {
 ```
 
 Note I'm using a timestep here that's just the time since the last frame, which you can get as Time.deltaTime. This can be good or bad. The good is that it ties to the frame rate and the physics ideally should display in real time. The bad is that if the frame rate is low the calculation is then done with a large timestep, and you don't have real control over your timestep. 
+
 Finally, let's tie this back to the visual. We need to set the transform's position, but due to how it is stored internally (transform components are immutable objects) we can't just change the x component of the transform, we have to set a whole new position, which is stored in an internal object of type "Vector3", and we'll have to make a new one.
 
 ```
@@ -217,8 +227,11 @@ public class Oscillator : MonoBehaviour {
 ```
 
 Since "x" is a double and Vector3 in Unity is comprised of floats, there's the chance for loss of precision. The compiler will complain if we try to put a double into a float if we don't give direction that it is intended, which we do with a dynamic cast. This can be done by putting the data type we intend in parentheses in front of the variable name. (double/float duality!)
+
 For new programmers, notice that in C# we can split a command across lines of code, it's the semicolon that ends the command not the new line. For long lines this can make more readable code, just be careful not to split quoted strings of text across lines.
+
 Save this and go back to the editor and press the play button.
+
 If everything worked, your object should be moving back and forth! Try changing k and m and seeing if it affects the motion of your object in the way you expect.
 
 [Click here for the final Unity project](/files/blog_2018_11_20/UnityPost1.zip)
