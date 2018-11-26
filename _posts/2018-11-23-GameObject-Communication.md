@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Using the GetComponent Command
-use_math: false
+use_math: true
 ---
 
 One of the most important features of [Unity](https://unity3d.com/)'s scripting language is the "[GetComponent](https://docs.unity3d.com/ScriptReference/GameObject.GetComponent.html)" command. Each game object in Unity has its features extended by components. Components can be used to attach a renderer, or a collider, or a special effect. Components can also be used to attach our custom scripts.
