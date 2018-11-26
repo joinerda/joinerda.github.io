@@ -354,6 +354,6 @@ Here we are setting the color of the material of the renderer component attached
 
 [Click here for the final Unity project](/files/blog_2018_11_26/ConnectedObjects.zip)
 
-[Comment on Twitter](https://twitter.com/dajoiner/status/1065093549820137473)
+[Comment on Twitter](https://twitter.com/dajoiner/status/1067135885861371905)
 
 
