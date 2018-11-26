@@ -153,12 +153,157 @@ public class Body : MonoBehaviour {
 }
 
 
-The math at this point is straight forward. The ideal spring position for the left spring is $x_{left}+l$ so the spring force is $F_{left} = -(k/m) (x-(x_{left}+l))$
+The math at this point is straight forward. The ideal spring position for the left spring is $x_{left}+l$ so the spring force is $F_{left} = -(k) (x-(x_{left}+l))$. Similarly, $F_{right} = -(k) (x - (x_{right}-l))$. We will use a leapfrog method to first update the velocity, and then update the position.
 
 
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
+public class Body : MonoBehaviour {
 
+	public GameObject left = null;
+	public GameObject right = null;
 
+	float k=1;
+	float m=1;
+	float l=2;
+	float v=0;
+
+	// Use this for initialization
+	void Start () {
+		
+	}
+	
+	// Update is called once per frame
+	void Update () {
+		if (left != null && right != null) {
+			float my_x = transform.position.x;
+			float left_x = left.GetComponent<Body> ().transform.position.x;
+			float right_x = right.GetComponent<Body> ().transform.position.x;
+			float force_left = -k * (my_x - (left_x + l));
+			float force_right = -k * (my_x - (right_x - l));
+
+			// a = F/m
+			v += (force_left + force_right) / m * Time.deltaTime;
+
+			// can't change transform.position.x directly in Unity so
+			//    do this in steps.
+			Vector3 newPosition = Vector3.zero;
+			newPosition.x = transform.position.x + v * Time.deltaTime;
+			transform.position = newPosition;
+
+		}
+		
+	}
+}
+
+Play this in the editor, you should see a tiny oscillation of the middle object.
+
+Change the initial x value of middle by moving it in the scene in the editor and re-run the model. You should see a larger oscillation.
+
+If this is working, we can expand our chain by simply adding in more "Body" prefabs, setting their position, and attaching them in the editor. Try chaining together 5 objects all roughly 1 apart.
+
+There are other things we can try here, such as changing the size of the object in the prefab. Change the x, y, and z scale values in the Body prefab to 0.5. Notice that all of the objects are smaller in the screen. Select a single object in the scene, and reset its scale to 1,1,1. After doing this, change the prefab scale to 0.3,0.3,0.3. Notice that an object that has had a prefab value set in the scene directly overrides the prefab value, but that if no overridden value has been set, the prefab can be used to change things globally.
+
+Also, we could change the mass of each individual object. Change the definition of mass in the Body script to be public. 
+
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Body : MonoBehaviour {
+
+	public GameObject left = null;
+	public GameObject right = null;
+
+	float k=1;
+	public float m=1;
+	float l=2;
+	float v=0;
+
+	// Use this for initialization
+	void Start () {
+		
+	}
+	
+	// Update is called once per frame
+	void Update () {
+		if (left != null && right != null) {
+			float my_x = transform.position.x;
+			float left_x = left.GetComponent<Body> ().transform.position.x;
+			float right_x = right.GetComponent<Body> ().transform.position.x;
+			float force_left = -k * (my_x - (left_x + l));
+			float force_right = -k * (my_x - (right_x - l));
+
+			// a = F/m
+			v += (force_left + force_right) / m * Time.deltaTime;
+
+			// can't change transform.position.x directly in Unity so
+			//    do this in steps.
+			Vector3 newPosition = Vector3.zero;
+			newPosition.x = transform.position.x + v * Time.deltaTime;
+			transform.position = newPosition;
+
+		}
+		
+	}
+}
+
+Save your script, and go back to the unity editor. Select the middlemost object in the scene, and look at it in the inspector. Notice that you can now modify m for that object in the editor. This value will override whatever is in the script. Set the middlemost mass to something very large, or very small. Play the model. Do you notice the change in behaviour?
+
+So, at this point we've made a multi-object model, with each object having it's rules determined by a script, with nearby objects explicitly linked as public GameObject variables, and have updated the positions of the object by calling GetComponent on the Body script on the other object. Future posts will look at model efficiency and precision, and methods of separating calculation from visualization.
+
+Let's add one final touch to our current model to get another example of using GetComponent. We used it so far to get at another objects transform, but lets use it again to change each objects color based on how fast it is moving.
+
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Body : MonoBehaviour {
+
+	public GameObject left = null;
+	public GameObject right = null;
+
+	float k=1;
+	public float m=1;
+	float l=2;
+	float v=0;
+
+	// Use this for initialization
+	void Start () {
+		
+	}
+	
+	// Update is called once per frame
+	void Update () {
+		if (left != null && right != null) {
+			float my_x = transform.position.x;
+			float left_x = left.GetComponent<Body> ().transform.position.x;
+			float right_x = right.GetComponent<Body> ().transform.position.x;
+			float force_left = -k * (my_x - (left_x + l));
+			float force_right = -k * (my_x - (right_x - l));
+
+			// a = F/m
+			v += (force_left + force_right) / m * Time.deltaTime;
+
+			// can't change transform.position.x directly in Unity so
+			//    do this in steps.
+			Vector3 newPosition = Vector3.zero;
+			newPosition.x = transform.position.x + v * Time.deltaTime;
+			transform.position = newPosition;
+
+			if (v < 0) {
+				GetComponent<Renderer> ().material.color = Color.Lerp (Color.green, Color.red, -v+0.5f);
+			} else {
+				GetComponent<Renderer> ().material.color = Color.Lerp (Color.green, Color.blue, v+0.5f);
+			}
+		}
+		
+	}
+}
+
+Here we are setting the color of the material of the renderer component attached to the gameobject, with some conditional logic so that for negative velocities the color will be reddish and for positive velocities the color will be blueish, with slightly more intense colors for higher speeds.
 
 
 
