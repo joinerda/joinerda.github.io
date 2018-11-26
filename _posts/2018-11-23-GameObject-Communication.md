@@ -352,5 +352,8 @@ public class Body : MonoBehaviour {
 Here we are setting the color of the material of the renderer component attached to the gameobject, with some conditional logic so that for negative velocities the color will be reddish and for positive velocities the color will be blueish, with slightly more intense colors for higher speeds.
 
 
+[Click here for the final Unity project](/files/blog_2018_11_26/ConnectedObjects.zip)
+
+[Comment on Twitter](https://twitter.com/dajoiner/status/1065093549820137473)
 
 
