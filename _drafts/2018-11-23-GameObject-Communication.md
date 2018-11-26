@@ -6,7 +6,7 @@ use_math: false
 
 One of the most important features of [Unity](https://unity3d.com/)'s scripting language is the "[GetComponent](https://docs.unity3d.com/ScriptReference/GameObject.GetComponent.html)" command. Each game object in Unity has its features extended by components. Components can be used to attach a renderer, or a collider, or a special effect. Components can also be used to attach our custom scripts.
 
-At times, you will want a script on an object to be able to access that objects other components. Sometimes, you will want your script on one gameobject to be able to access public member variables and methods of a script attached to another game object. GetComponent is the plumbing that will allow that to happen.
+At times, you will want a script on an object to be able to access that object's other components. Sometimes, you will want your script on one gameobject to be able to access public member variables and methods of a script attached to another game object. GetComponent is the plumbing that will allow that to happen.
 
 This blog will introduce you to the GetComponent command by having our oscillator from the first blog not just oscillate around some equilibrium, but around some equilibrium bond distance to another object.
 
@@ -14,7 +14,7 @@ Additionally, we will show another feature of the Unity editor, which is the use
 
 This blog post assumes you have worked through the previous post, or that you know how to add a gameobject to a unity scene and attach a script to the object. We will not, however, start from where the last blog left off but rather start from a new unity game.
 
-Open unity and create a new 3D game.
+To begin, open unity and create a new 3D game.
 
 Create a sphere in the hierarchy. Save your scene. Often.
 
@@ -24,7 +24,140 @@ Once that is done, drag Body from the hierarchy panel to the project panel. This
 
 What we are going to do initially is create a string of Body objects, all in a row. Each of these objects will have a link to objects on the right and left, which we will set in the editor. Our leftmost and rightmost object will be fixed in place, and all of them will be modeled to move as if connected in line by a series of springs. Each object will move as an oscillator, as in the last blog, but the spring forces will be determined by a relaxed length of each spring and by the position of the objects to the left and right.
 
-This will allow us to see one method of creating a model in unity, where each instance of an object has its own rules for recognizing its surroundings and interacting with them.
+This will allow us to see one method of creating a model in unity, where each instance of an object has its own rules for recognizing its surroundings and interacting with them. This approach has strengths and weaknesses. On the plus side, it's easy to think of objects as "objects" in the computer science sense using this approach, and to think of the rules that individual objects follow. However, it may not be as efficient as keeping a seperate numerical model that we simply attach objects to for the purposes of visualization. This can be a good way to get started, and you can rethink how you structure your models when you find that efficiency has become more important.
+
+Double click your Body script (or whatever you chose to call it) to open it. To begin with, let's have each object store a variable for other objects to the left and right. We will mke these variables public, so that they are visuble to the editor and we can set them in the editor. We will make these variables of type GameObject as we are going to store the actual game object in unity attached to the left or right. Set the initial value to null so that we can have a default case be no objects attached, useful for knowing which objects are at the end.
+
+
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Body : MonoBehaviour {
+
+	public GameObject left = null;
+	public GameObject right = null;
+
+	// Use this for initialization
+	void Start () {
+		
+	}
+	
+	// Update is called once per frame
+	void Update () {
+		
+	}
+}
+
+Save your script and go back to the Unity editor. GIve it a few seconds to refresh, and highlight the Body object in your heirarchy panel. Check to see that the "Body (Script)" component now has two fields for Left and Right. If it doesn't, check your console panel to see if there are any syntax errors in your script.
+
+Drag two more prefab "Body" objects onto the heirarchy panel from the Project panel.
+
+Switch your main view to the scene panel if it is not there already. Move two of the Body objects along the x-axis. You can do this either by selecting the object in the heirarchy, and changing the transform position in the inspector, or you can select the move tool in the upper eft corner of the editor window and drag it into place.
+
+Move your objects so that they are at positions of roughly -2, 0, and 2 along the x axis, and 0 in y and z. I will rename my scene objects to make it a little easier to keep them apart as left (at -2), middle, and right. Highlighting left in the heirarchy panel to open it in the inspector, drag middle from the hierarchy panel into the spot marked "right" for the "left" object now showing in the inspector (the middle object is to the right of the leftmost object).
+
+Repeat this for middle (left is to the left, right is to the right), and for right (middle is to the left).
+
+Now it is possible for each object to know which other objects they are connected to, and to get information about those other objects.
+
+Open up the Body script again, and lets add a default "spring length" l which we will set equal to 2, a mass m=1, a initial velocity=0, and a stiffness k=1. Unity tends to work in float by defaul, which isn't great from a precision point of view but will be good enough for this example, so for now we will stick with floats for our real numbers.
+
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Body : MonoBehaviour {
+
+	public GameObject left = null;
+	public GameObject right = null;
+
+	float k=1;
+	float m=1;
+	float l=2;
+	float v=0;
+
+	// Use this for initialization
+	void Start () {
+		
+	}
+	
+	// Update is called once per frame
+	void Update () {
+		
+	}
+}
+
+In Update, we want to check to see if there are objects to the left and right, and if so, calculate a spring force from each of those, and use it to update our position and velocity. The current objects position can be taken from its transform.
+
+
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Body : MonoBehaviour {
+
+	public GameObject left = null;
+	public GameObject right = null;
+
+	float k=1;
+	float m=1;
+	float l=2;
+	float v=0;
+
+	// Use this for initialization
+	void Start () {
+		
+	}
+	
+	// Update is called once per frame
+	void Update () {
+		if (left != null && right != null) {
+			float my_x = transform.position.x;
+		}
+		
+	}
+}
+
+What about the objects to the left and right? We can use GetComponent to get access to the instance of the Body script attached to the other objects, and read the transform variables of those objects. GetComponent is a templated command, and we specify the class to which it is applied in angled brackets in between the function name and argument list. I called my script "Body" so the data type I want to get with GetComponent is "Body".
+
+
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Body : MonoBehaviour {
+
+	public GameObject left = null;
+	public GameObject right = null;
+
+	float k=1;
+	float m=1;
+	float l=2;
+	float v=0;
+
+	// Use this for initialization
+	void Start () {
+		
+	}
+	
+	// Update is called once per frame
+	void Update () {
+		if (left != null && right != null) {
+			float my_x = transform.position.x;
+			float left_x = left.GetComponent<Body> ().transform.position.x;
+			float right_x = right.GetComponent<Body> ().transform.position.x;
+		}
+		
+	}
+}
+
+
+The math at this point is straight forward. The ideal spring position for the left spring is $x_{left}+l$ so the spring force is $F_{left} = -(k/m) (x-(x_{left}+l))$
+
+
+
+
 
 
 
