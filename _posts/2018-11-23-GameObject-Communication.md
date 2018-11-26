@@ -43,7 +43,7 @@ This will allow us to see one method of creating a model in unity, where each in
 
 Double click your Body script (or whatever you chose to call it) to open it. To begin with, let's have each object store a variable for other objects to the left and right. We will mke these variables public, so that they are visuble to the editor and we can set them in the editor. We will make these variables of type GameObject as we are going to store the actual game object in unity attached to the left or right. Set the initial value to null so that we can have a default case be no objects attached, useful for knowing which objects are at the end.
 
-
+```
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -63,6 +63,7 @@ public class Body : MonoBehaviour {
 		
 	}
 }
+```
 
 Save your script and go back to the Unity editor. GIve it a few seconds to refresh, and highlight the Body object in your heirarchy panel. Check to see that the "Body (Script)" component now has two fields for Left and Right. If it doesn't, check your console panel to see if there are any syntax errors in your script.
 
@@ -93,6 +94,7 @@ Now it is possible for each object to know which other objects they are connecte
 
 Open up the Body script again, and lets add a default "spring length" l which we will set equal to 2, a mass m=1, a initial velocity=0, and a stiffness k=1. Unity tends to work in float by defaul, which isn't great from a precision point of view but will be good enough for this example, so for now we will stick with floats for our real numbers.
 
+```
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -117,10 +119,12 @@ public class Body : MonoBehaviour {
 		
 	}
 }
+```
+
 
 In Update, we want to check to see if there are objects to the left and right, and if so, calculate a spring force from each of those, and use it to update our position and velocity. The current objects position can be taken from its transform.
 
-
+```
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -148,10 +152,11 @@ public class Body : MonoBehaviour {
 		
 	}
 }
+```
 
 What about the objects to the left and right? We can use GetComponent to get access to the instance of the Body script attached to the other objects, and read the transform variables of those objects. GetComponent is a templated command, and we specify the class to which it is applied in angled brackets in between the function name and argument list. I called my script "Body" so the data type I want to get with GetComponent is "Body".
 
-
+```
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -181,11 +186,11 @@ public class Body : MonoBehaviour {
 		
 	}
 }
-
+```
 
 The math at this point is straight forward. The ideal spring position for the left spring is $x_{left}+l$ so the spring force is $F_{left} = -(k) (x-(x_{left}+l))$. Similarly, $F_{right} = -(k) (x - (x_{right}-l))$. We will use a leapfrog method to first update the velocity, and then update the position.
 
-
+```
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -227,6 +232,7 @@ public class Body : MonoBehaviour {
 		
 	}
 }
+```
 
 Play this in the editor, you should see a tiny oscillation of the middle object.
 
@@ -241,6 +247,7 @@ There are other things we can try here, such as changing the size of the object 
 
 Also, we could change the mass of each individual object. Change the definition of mass in the Body script to be public. 
 
+```
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -282,6 +289,7 @@ public class Body : MonoBehaviour {
 		
 	}
 }
+```
 
 Save your script, and go back to the unity editor. Select the middlemost object in the scene, and look at it in the inspector. Notice that you can now modify m for that object in the editor. This value will override whatever is in the script. Set the middlemost mass to something very large, or very small. Play the model. Do you notice the change in behaviour?
 
@@ -292,6 +300,7 @@ So, at this point we've made a multi-object model, with each object having it's 
 
 Let's add one final touch to our current model to get another example of using GetComponent. We used it so far to get at another objects transform, but lets use it again to change each objects color based on how fast it is moving.
 
+```
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -338,6 +347,7 @@ public class Body : MonoBehaviour {
 		
 	}
 }
+```
 
 Here we are setting the color of the material of the renderer component attached to the gameobject, with some conditional logic so that for negative velocities the color will be reddish and for positive velocities the color will be blueish, with slightly more intense colors for higher speeds.
 
