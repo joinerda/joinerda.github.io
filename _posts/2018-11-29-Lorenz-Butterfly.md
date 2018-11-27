@@ -158,6 +158,30 @@ public class Tracer : MonoBehaviour {
 
 Notice that this routine doesn’t really need to know the member variable x, so for ease of writing out the derivatives we’ll store each element of $\vec{x}$ passed to the routine in local variables x, y, and z.
 
+The integration method we will use is the 4th order Runge Kutta method, or RK4. This is a classic method described in many places, [Wikipedia](https://en.wikipedia.org/wiki/Runge%E2%80%93Kutta_methods) has a pretty good write-up. In short, given some function $\vec{f}(x,t)$ that gives the rates of change of some system of variables $\vec{x}$, you can predict the next step using the algorithm as follows.
+
+$$
+\vec{x}(t+h) = x(t) + (1/6) (\vec{k}_1 + 2 \vec{k}_2 + 2 \vec{k}_3 + \vec{k}_4)
+$$
+
+where
+
+$$
+\vec{k}_1 = \vec{f}(\vec{x}(t),t)
+$$
+
+$$
+\vec{k}_2 = \vec{f}(\vec{x}(t)+\vec{k}_1/2,t+h/2)
+$$
+
+$$
+\vec{k}_3 = \vec{f}(\vec{x}(t)+\vec{k}_2/2,t+h/2)
+$$
+
+$$
+\vec{k}_4 = \vec{f}(\vec{x}(t)+\vec{k}_3,t+h)
+$$
+
 We’ll implement the RK4 step in FixedUpdate. For this step, we’ll call rates of change using the current value of $\vec{x}$, and use xprime to set $\vec{k}_1$. The next value of the rates of change in our RK4 step is at $\vec{x}+1/2 \vec{k}_1$, so we will calculate that and store it in xstore. This will be repeated as necessary to complete the step.
 
 ```
