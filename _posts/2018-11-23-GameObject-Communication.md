@@ -18,23 +18,23 @@ To begin, open unity and create a new 3D game.
 
 Create a sphere in the hierarchy. Save your scene. Often.
 
-![adding a sphere in unity](/images/blog_2018_11_26/figure1.png)
+![adding a sphere in unity](/images/blog_2018_11_23/figure1.png)
 
 
 Add a component to the sphere of a new script. Name the script something that makes sense to you. This will be something that we will make a prefab out of, and what I like to do is to have the prefab and the script have the same name. I'm going to rename my sphere in the hierarchy window "Body", and add a script called Body to it. If my prefab, its script, its materials, etc. all have the same name its easier to see what goes together.
 
-![change name of object](/images/blog_2018_11_26/figure2.png)
+![change name of object](/images/blog_2018_11_23/figure2.png)
 
-![add component](/images/blog_2018_11_26/figure3.png)
+![add component](/images/blog_2018_11_23/figure3.png)
 
-![new script](/images/blog_2018_11_26/figure4.png)
+![new script](/images/blog_2018_11_23/figure4.png)
 
-![name script](/images/blog_2018_11_26/figure5.png)
+![name script](/images/blog_2018_11_23/figure5.png)
 
 
 Once that is done, drag Body from the hierarchy panel to the project panel. This is the easiest way to create a prefab. Creating an object as a prefab has many advantages, especially if the object will be reused in many scenes, many programs, or if there will be multiple copies of the object in the same scene. The object in the hierarchy is now linked to this prefab, and changes in the prefab that haven't been overridden in the hierarchy will automatically updated across all instances of the prefab in the scene.
 
-![drag to make prefab](/images/blog_2018_11_26/figure6.png)
+![drag to make prefab](/images/blog_2018_11_23/figure6.png)
 
 
 What we are going to do initially is create a string of Body objects, all in a row. Each of these objects will have a link to objects on the right and left, which we will set in the editor. Our leftmost and rightmost object will be fixed in place, and all of them will be modeled to move as if connected in line by a series of springs. Each object will move as an oscillator, as in the last blog, but the spring forces will be determined by a relaxed length of each spring and by the position of the objects to the left and right.
@@ -67,24 +67,24 @@ public class Body : MonoBehaviour {
 
 Save your script and go back to the Unity editor. GIve it a few seconds to refresh, and highlight the Body object in your heirarchy panel. Check to see that the "Body (Script)" component now has two fields for Left and Right. If it doesn't, check your console panel to see if there are any syntax errors in your script.
 
-![public feilds in editor](/images/blog_2018_11_26/figure7.png)
+![public feilds in editor](/images/blog_2018_11_23/figure7.png)
 
 
 Drag two more prefab "Body" objects onto the heirarchy panel from the Project panel.
 
-![drag back to scene](/images/blog_2018_11_26/figure8.png)
+![drag back to scene](/images/blog_2018_11_23/figure8.png)
 
 
 Switch your main view to the scene panel if it is not there already. Move two of the Body objects along the x-axis. You can do this either by selecting the object in the heirarchy, and changing the transform position in the inspector, or you can select the move tool in the upper left corner of the editor window and drag it into place.
 
-![move objects in scene](/images/blog_2018_11_26/figure9.png)
+![move objects in scene](/images/blog_2018_11_23/figure9.png)
 
 
 Move your objects so that they are at positions of roughly -2, 0, and 2 along the x axis, and 0 in y and z. I will rename my scene objects to make it a little easier to keep them apart as left (at -2), middle, and right. Highlighting left in the heirarchy panel to open it in the inspector, drag middle from the hierarchy panel into the spot marked "right" for the "left" object now showing in the inspector (the middle object is to the right of the leftmost object).
 
-![rename scene objects](/images/blog_2018_11_26/figure10.png)
+![rename scene objects](/images/blog_2018_11_23/figure10.png)
 
-![drag scene object to public field](/images/blog_2018_11_26/figure11.png)
+![drag scene object to public field](/images/blog_2018_11_23/figure11.png)
 
 
 
@@ -240,7 +240,7 @@ Change the initial x value of middle by moving it in the scene in the editor and
 
 If this is working, we can expand our chain by simply adding in more "Body" prefabs, setting their position, and attaching them in the editor. Try chaining together 5 objects all roughly 1 apart.
 
-![scene with 5 objects](/images/blog_2018_11_26/figure12.png)
+![scene with 5 objects](/images/blog_2018_11_23/figure12.png)
 
 
 There are other things we can try here, such as changing the size of the object in the prefab. Change the x, y, and z scale values in the Body prefab to 0.5. Notice that all of the objects are smaller in the screen. Select a single object in the scene, and reset its scale to 1,1,1. After doing this, change the prefab scale to 0.3,0.3,0.3. Notice that an object that has had a prefab value set in the scene directly overrides the prefab value, but that if no overridden value has been set, the prefab can be used to change things globally.
@@ -293,7 +293,7 @@ public class Body : MonoBehaviour {
 
 Save your script, and go back to the unity editor. Select the middlemost object in the scene, and look at it in the inspector. Notice that you can now modify m for that object in the editor. This value will override whatever is in the script. Set the middlemost mass to something very large, or very small. Play the model. Do you notice the change in behaviour?
 
-![change masses in editor](/images/blog_2018_11_26/figure13.png)
+![change masses in editor](/images/blog_2018_11_23/figure13.png)
 
 
 So, at this point we've made a multi-object model, with each object having it's rules determined by a script, with nearby objects explicitly linked as public GameObject variables, and have updated the positions of the object by calling GetComponent on the Body script on the other object. Future posts will look at model efficiency and precision, and methods of separating calculation from visualization.
@@ -352,7 +352,7 @@ public class Body : MonoBehaviour {
 Here we are setting the color of the material of the renderer component attached to the gameobject, with some conditional logic so that for negative velocities the color will be reddish and for positive velocities the color will be blueish, with slightly more intense colors for higher speeds.
 
 
-[Click here for the final Unity project](/files/blog_2018_11_26/ConnectedObjects.zip)
+[Click here for the final Unity project](/files/blog_2018_11_23/ConnectedObjects.zip)
 
 [Comment on Twitter](https://twitter.com/dajoiner/status/1067135885861371905)
 
