@@ -158,7 +158,7 @@ public class Tracer : MonoBehaviour {
 
 Notice that this routine doesn’t really need to know the member variable x, so for ease of writing out the derivatives we’ll store each element of $\vec{x}$ passed to the routine in local variables x, y, and z.
 
-The integration method we will use is the 4th order Runge Kutta method, or RK4. This is a classic method described in many places, [Wikipedia](https://en.wikipedia.org/wiki/Runge%E2%80%93Kutta_methods) has a pretty good write-up. In short, given some function $\vec{f}(x,t)$ that gives the rates of change of some system of variables $\vec{x}$, you can predict the next step using the algorithm as follows.
+The integration method we will use is the 4th order Runge Kutta method, or RK4. This is a classic method described in many places, [Wikipedia has a pretty good write-up](https://en.wikipedia.org/wiki/Runge%E2%80%93Kutta_methods). In short, given some function $\vec{f}(x,t)$ that gives the rates of change of some system of variables $\vec{x}$, you can predict the next step using the algorithm as follows.
 
 $$
 \vec{x}(t+h) = x(t) + (1/6) (\vec{k}_1 + 2 \vec{k}_2 + 2 \vec{k}_3 + \vec{k}_4)
