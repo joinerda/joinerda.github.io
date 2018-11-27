@@ -342,6 +342,9 @@ If you play the model now, your trace should have the same color as the material
 
 Highlight the material, and change the color of the material. Our original Tracer prefab still is using the default material, so highlight it, expand the MeshRenderer component if it is collapsed, expand the materials in MeshRenderer, and drag your material into element 0. Play again. Your Tracer and its trail should have the same color.
 
+![change color of material](/images/blog_2018_11_29/figure8.png)
+
+
 Let’s fix the thickness of the trail. The width property of the TrailRenderer component sets how thick it is. Set it to something smaller, like 0.1. Now when you run your model, the trail should be thinner. Adjust as needed to get something you can see, but that has the detail you would like.
 
 Notice that as it runs for a while, the old trail starts to disappear. You can change the time property of TrailRenderer to change how much history is kept. It is defaulted to 5 seconds, set it to something longer to keep a longer trace.
