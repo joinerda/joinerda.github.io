@@ -1,1 +1,10 @@
 
+---
+layout: post
+title: Testing of Draft Process
+use_math: false
+draft: true
+---
+
+
+This is a test of the drafting process for creating new posts
