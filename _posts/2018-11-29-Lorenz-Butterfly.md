@@ -330,7 +330,13 @@ Play your model again. One of a few things might happen if everything is done ri
 
 Right clicking in the Project panel, select Create->Material. I’m going to name it Tracer. The icon looks a little like the Tracer prefab, so if you find it easier to name it something else, like TracerMaterial, feel free.
 
+![create material](/images/blog_2018_11_29/figure6.png)
+
+
 Once you have your own material to work with, select the prefab for tracer in the Project panel, this will highlight the prefab in the Inspector. Click the triangle next to the word Materials in the TrailRenderer component to expand it. Drag your material into the Element 0 field.
+
+![drag material to trailrenderer](/images/blog_2018_11_29/figure7.png)
+
 
 If you play the model now, your trace should have the same color as the material you created.
 
