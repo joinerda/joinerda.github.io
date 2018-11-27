@@ -29,6 +29,9 @@ For now, we are going to implement our solution as a script attached to a game o
 
 To begin, open Unity and create a new 3D model. As in the last post, we need a base object with a script attached to represent our model. Create a sphere in the hierarchy and rename it “Tracer.” Add a new script called Tracer to it. Drag it into your project panel to make it into a prefab. Save your scene (often).
 
+![initial object creation](/images/blog_2018_11_29/figure1.png)
+
+
 Open the Tracer script, and add member variables of type double for our model. I’m going to store x,y,and z as a single vector $\vec{x}$ to make the implementation of the RK4 method easier. I’ll also add some extra arrays to store steps in the RK4 calculation, as well as an array to store rates of change of x.
 
 ```
