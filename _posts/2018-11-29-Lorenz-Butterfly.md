@@ -317,6 +317,15 @@ Play this. If your tracer starts at (0,0,0) and stays there, well, that is a sta
 
 Let’s add some visual effects. Select the prefab for the tracer in the Project panel, and add a TrailRenderer component.
 
+![adding trailrenderer to object](/images/blog_2018_11_23/figure2.png)
+
+![adding trailrenderer to object](/images/blog_2018_11_23/figure3.png)
+
+![adding trailrenderer to object](/images/blog_2018_11_23/figure4.png)
+
+![adding trailrenderer to object](/images/blog_2018_11_23/figure5.png)
+
+
 Play your model again. One of a few things might happen if everything is done right depending on which version of Unity you are running and on which architecture, but most likely what you see is a thick pink trace. It’s thick because we are at the default thickness. It’s pink because that’s what Unity shows whenever it doesn’t have an assigned material. TrailRenderer does not get assigned a default material the way that the standard sphere we used for the tracer does. Let’s add a material for our sphere, that will allow us to both set the color of our object and give us something to use as the material for our trace.
 
 Right clicking in the Project panel, select Create->Material. I’m going to name it Tracer. The icon looks a little like the Tracer prefab, so if you find it easier to name it something else, like TracerMaterial, feel free.
