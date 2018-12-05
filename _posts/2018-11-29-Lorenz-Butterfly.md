@@ -2,7 +2,7 @@
 layout: post
 title: Modeling the Lorenz Butterfly in Unity
 use_math: true
-draft: true
+draft: false
 ---
 
 ![Lorenz System](/images/blog_2018_11_29/figure0.png)
@@ -467,3 +467,6 @@ You may find you want to change your viewpoint as you watch this. We’ll cover 
 
 Depending on your settings, you may notice a choppiness to your traces. This can occur if the problem is being calculated so much faster than the frame rate that substantial information is lost between frames. There are a few options you have here. You can call fewer calls to FixedUpdate by changing the FixedUpdate desired time in the Project->Time settings. You could add a counter so that no matter how many timed FixedUpdate gets called per frame, you limit the number of steps that are calculated. You could set your own timestep, and make it smaller, resulting in less total motion per frame. We could replace TrailRenderer with our own custom object, that stores detail about what happens at every step in the calculation, not just what happens per frame as the TrailRenderer does. However, for a very simple trace added to your unity models, TrailRenderer can be a quick and easy way to add a visual history within your models.
 
+[Click here for the final Unity project](/files/blog_2018_11_29/LorenzButterfly.zip)
+
+[Comment on Twitter](https://twitter.com/dajoiner/status/1067135885861371905)
