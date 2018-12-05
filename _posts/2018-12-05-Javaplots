@@ -23,4 +23,4 @@ I ended up writing a small package, which can be downloaded from
 This blog will assume you are creating a java project in eclipse, though the javaplots package will work
 with or without an IDE. If you are working at a command line, you just need the worldofdata folder in the same files
 as your java code, or you should be able to add it to any other IDE in whatever way you like to do to manage adding
-packages to a java project.
+packages to a java project. 
