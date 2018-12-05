@@ -469,4 +469,4 @@ Depending on your settings, you may notice a choppiness to your traces. This can
 
 [Click here for the final Unity project](/files/blog_2018_11_29/LorenzButterfly.zip)
 
-[Comment on Twitter](https://twitter.com/dajoiner/status/1067135885861371905)
+[Comment on Twitter](https://twitter.com/dajoiner/status/1070363087100960768)
