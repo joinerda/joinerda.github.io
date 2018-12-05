@@ -5,6 +5,9 @@ use_math: true
 draft: true
 ---
 
+![Lorenz System](/images/blog_2018_11_29/figure0.png)
+
+
 The Lorenz system is a widely studied example of a chaotic system. It’s classically simple, needing only three coupled equations to exhibit a variety of types of traditionally chaotic behavior. First described by Lorenz in 1963, the system was initially designed as a simplified model of convection in the atmosphere.
 
 The system is defined as
