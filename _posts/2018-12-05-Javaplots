@@ -1,1 +1,26 @@
+---
+layout: post
+title: Javaplots
+use_math: true
+draft: true
+---
 
+This is a departure from the current set of posts on adding modeling and simulation to Unity game engine.
+In Unity, I've got great built in animation and visualization and have to add my own numerical analysis.
+In my Intro to Scientific Programming class (first year Java for computational science majors) I have
+the opposite problem, good tools for handling the math, but not as many options as I'd like for visualization.
+
+There are some good viz tools in Java, but none of them had the ease of use of "plot and pause" in MATLAB,
+or "plt.plot/plt.show" in python/matplotlib. I needed a simple to use plotting package for basic line plots, 
+scatter plots, histograms, and heatmaps for a first semester group of Java students who were focusing on
+science applications. I wanted something that could be called in a couple of lines, didn't require knowledge
+of exception handling or of swing components or the canvas drawing process in Java, and that could handle
+either standard arrays or arraylist objects.
+
+I ended up writing a small package, which can be downloaded from
+[https://github.com/joinerda/worldofdata-javaplots](https://github.com/joinerda/worldofdata-javaplots).
+
+This blog will assume you are creating a java project in eclipse, though the javaplots package will work
+with or without an IDE. If you are working at a command line, you just need the worldofdata folder in the same files
+as your java code, or you should be able to add it to any other IDE in whatever way you like to do to manage adding
+packages to a java project.
