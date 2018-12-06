@@ -24,3 +24,79 @@ This blog will assume you are creating a java project in eclipse, though the jav
 with or without an IDE. If you are working at a command line, you just need the worldofdata folder in the same files
 as your java code, or you should be able to add it to any other IDE in whatever way you like to do to manage adding
 packages to a java project. 
+
+To begin, lets start with the hello world of 2D plotting, $y=sin(x)$. I will create a new project in Eclipse with a
+empty class to create and plot some data, and copy the Javaplots code into the project.
+
+In main, I will create an array x linearly spaced from 0 to 2 $\pi$. I'll write a simple linspace routine to help with this.
+I'll also crete an array $y$ set equal to $sin(x)$.
+
+```
+public class MakeSomePlots {
+	
+	public static double [] linspace(double a, double b, int n) {
+		double [] spaced = new double[n];
+		spaced[0] = a;
+		spaced[n-1] = b;
+		double h = (b-a)/(n-1);
+		for (int i=1;i<n-1;i++) spaced[i] = a+i*h;
+		return spaced;
+	}
+
+	public static void main(String[] args) {
+		int n = 100;
+		double [] x = linspace(0,2.0*Math.PI,n);
+    double [] y = new double[n];
+		
+		for(int i=0;i<n;i++) y[i] = Math.sin(x[i]);
+
+	}
+
+}
+```
+
+Now that we have some data, let's view it. The main plotting objects in Javaplots are SimplePlot (line and marker based scatter
+plots), SimpleHist (histograms), SimpleBox (box plots), and SimpleGrid (heatmaps).
+
+To create a new plot window, we will instantiate a variable of type SimplePlot using the command "SimplePlot sp = new SimplePlot(500,500);" If you don;t add data to your simple plot window, it will load with default test data. Use the
+"setData" method to add data, and the setPlotBounds method to set the limits of the plot. Once new information has been
+added to the plot, it needs to be invalidated so that it will be redrawn, this can be done with the "repaint()" method.
+
+```
+import worldofdata.javaplots.SimplePlot;
+
+public class MakeSomePlots {
+	
+	public static double [] linspace(double a, double b, int n) {
+		double [] spaced = new double[n];
+		spaced[0] = a;
+		spaced[n-1] = b;
+		double h = (b-a)/(n-1);
+		for (int i=1;i<n-1;i++) spaced[i] = a+i*h;
+		return spaced;
+	}
+
+	public static void main(String[] args) {
+		int n = 100;
+		double [] x = linspace(0,2.0*Math.PI,n);
+		double [] y = new double[n];
+		
+		for(int i=0;i<n;i++) y[i] = Math.sin(x[i]);
+		
+		SimplePlot sp = new SimplePlot(500,500);
+		sp.setData(x, y);
+		sp.setPlotBounds(0, 2.0*Math.PI, -1, 1);
+		sp.repaint();
+		
+		
+
+	}
+
+}
+```
+
+Run your code, and you should get a plot of $y=sin(x)$.
+
+
+
+
