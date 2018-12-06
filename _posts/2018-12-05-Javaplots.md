@@ -97,6 +97,57 @@ public class MakeSomePlots {
 
 Run your code, and you should get a plot of $y=sin(x)$.
 
+You can add additional arguments for line/marker color and plot type (line/marker/both).
+
+```
+		sp.setData(x, y,Color.green,SimplePlot.Style.BOTH);
+```
+
+The setData method starts a new plot, but you can add additional data to an existing plot using addData.
+
+To animate a SimplePlot, simple reset the data for the plot and call repaint. You may find that you want to add a delay per frame using the sleep command.
+
+We will make our wave travel, by plotting $sin(x-\omega t)$. 
+
+```
+import java.awt.Color;
+
+import worldofdata.javaplots.SimplePlot;
+
+public class MakeSomePlots {
+	
+	public static double [] linspace(double a, double b, int n) {
+		double [] spaced = new double[n];
+		spaced[0] = a;
+		spaced[n-1] = b;
+		double h = (b-a)/(n-1);
+		for (int i=1;i<n-1;i++) spaced[i] = a+i*h;
+		return spaced;
+	}
+
+	public static void main(String[] args) {
+		int n = 100;
+		double [] x = linspace(0,2.0*Math.PI,n);
+		double [] y = new double[n];
+		SimplePlot sp = new SimplePlot(500,500);
+
+		double t = 0;
+		double tfinal = 100.0;
+		double h = .1;
+		double omega = 2.0;
+		
+		while(t<tfinal) {
+			for(int i=0;i<n;i++) y[i] = 
+					Math.sin(x[i]-omega*t);
+			sp.setData(x, y);
+			sp.setPlotBounds(0, 2.0*Math.PI, -1, 1);
+			sp.repaint();
+			sp.sleep(10);
+			t += h;
+		}
+	}
+}
+```
 
 
 
