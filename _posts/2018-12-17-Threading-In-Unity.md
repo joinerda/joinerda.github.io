@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Javaplots
+title: Threading
 use_math: true
 draft: true
 ---
