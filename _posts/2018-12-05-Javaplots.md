@@ -84,7 +84,7 @@ To create a new plot window, we will instantiate a variable of type SimplePlot u
 added to the plot, it needs to be invalidated so that it will be redrawn, this can be done with the "repaint()" method.
 
 ```
-**import worldofdata.javaplots.SimplePlot;**
+import worldofdata.javaplots.SimplePlot;
 
 public class MakeSomePlots {
 	
@@ -104,10 +104,10 @@ public class MakeSomePlots {
 		
 		for(int i=0;i<n;i++) y[i] = Math.sin(x[i]);
 		
-		**SimplePlot sp = new SimplePlot(500,500);
+		SimplePlot sp = new SimplePlot(500,500);
 		sp.setData(x, y);
 		sp.setPlotBounds(0, 2.0*Math.PI, -1, 1);
-		sp.repaint();**
+		sp.repaint();
 		
 		
 
