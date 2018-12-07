@@ -20,6 +20,11 @@ either standard arrays or arraylist objects.
 I ended up writing a small package, which can be downloaded from
 [https://github.com/joinerda/worldofdata-javaplots](https://github.com/joinerda/worldofdata-javaplots).
 
+Each of the plot objects will create its own JFrame, so students don't have to learn about graphics or layout
+to use it--it cant be implemented as easily as a simple dialog box.
+For students who want to embed the objects inside of an application, this is also possible, and object
+instantiation differs only by a single boolean variable.
+
 This blog will assume you are creating a java project in eclipse, though the javaplots package will work
 with or without an IDE. If you are working at a command line, you just need the worldofdata folder in the same files
 as your java code, or you should be able to add it to any other IDE in whatever way you like to do to manage adding
@@ -149,5 +154,7 @@ public class MakeSomePlots {
 }
 ```
 
+Each of the SimpleGraphComponent applications can also be run as a stand alone application to show a
+demonstration of the tool, and the main routine for that code can be used as an exampe of how to implement.
 
 
