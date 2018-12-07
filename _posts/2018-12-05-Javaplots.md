@@ -2,7 +2,7 @@
 layout: post
 title: Javaplots
 use_math: true
-draft: true
+draft: false
 ---
 
 This is a departure from the current set of posts on adding modeling and simulation to Unity game engine.
