@@ -79,7 +79,7 @@ public class MakeSomePlots {
 Now that we have some data, let's view it. The main plotting objects in Javaplots are SimplePlot (line and marker based scatter
 plots), SimpleHist (histograms), SimpleBox (box plots), and SimpleGrid (heatmaps).
 
-To create a new plot window, we will instantiate a variable of type SimplePlot using the command "SimplePlot sp = new SimplePlot(500,500);" If you don;t add data to your simple plot window, it will load with default test data. Use the
+To create a new plot window, we will instantiate a variable of type SimplePlot using the command "SimplePlot sp = new SimplePlot(500,500);" If you don't add data to your simple plot window, it will load with default test data. Use the
 "setData" method to add data, and the setPlotBounds method to set the limits of the plot. Once new information has been
 added to the plot, it needs to be invalidated so that it will be redrawn, this can be done with the "repaint()" method.
 
