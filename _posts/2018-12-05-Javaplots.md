@@ -20,6 +20,9 @@ either standard arrays or arraylist objects.
 I ended up writing a small package, which can be downloaded from
 [https://github.com/joinerda/worldofdata-javaplots](https://github.com/joinerda/worldofdata-javaplots).
 
+![Downloading Javaplots](/images/blog_2018_12_05/figure3.png)
+
+
 Each of the plot objects will create its own JFrame, so students don't have to learn about graphics or layout
 to use it--it cant be implemented as easily as a simple dialog box.
 For students who want to embed the objects inside of an application, this is also possible, and object
@@ -32,6 +35,14 @@ packages to a java project.
 
 To begin, lets start with the hello world of 2D plotting, $y=sin(x)$. I will create a new project in Eclipse with a
 empty class to create and plot some data, and copy the Javaplots code into the project.
+
+
+![New Project](/images/blog_2018_12_05/figure1.png)
+
+![New Class](/images/blog_2018_12_05/figure2.png)
+
+![Drag into source](/images/blog_2018_12_05/figure4.png)
+
 
 In main, I will create an array x linearly spaced from 0 to 2 $\pi$. I'll write a simple linspace routine to help with this.
 I'll also crete an array $y$ set equal to $sin(x)$.
@@ -102,6 +113,9 @@ public class MakeSomePlots {
 
 Run your code, and you should get a plot of $y=sin(x)$.
 
+![y = sin(x)](/images/blog_2018_12_05/figure5.png)
+
+
 You can add additional arguments for line/marker color and plot type (line/marker/both).
 
 ```
@@ -156,5 +170,12 @@ public class MakeSomePlots {
 
 Each of the SimpleGraphComponent applications can also be run as a stand alone application to show a
 demonstration of the tool, and the main routine for that code can be used as an exampe of how to implement.
+
+![Boxplot example](/images/blog_2018_12_05/figure6.png)
+
+![Histogram example](/images/blog_2018_12_05/figure7.png)
+
+![Heatmap example](/images/blog_2018_12_05/figure8.png)
+
 
 
