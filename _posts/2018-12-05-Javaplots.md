@@ -190,6 +190,6 @@ Let me know if you find this helpful or if you use this for any of your classes 
 
 
 
-[Comment on Twitter](https://twitter.com/dajoiner/status/1070363087100960768)
+[Comment on Twitter](https://twitter.com/dajoiner/status/1071063333757992961)
 
 
