@@ -133,7 +133,7 @@ To animate a SimplePlot, simple reset the data for the plot and call repaint. Yo
 
 We will make our wave travel, by plotting $sin(x-\omega t)$. 
 
-```
+~~~
 import java.awt.Color;
 
 import worldofdata.javaplots.SimplePlot;
@@ -171,7 +171,7 @@ public class MakeSomePlots {
 		}
 	}
 }
-```
+~~~
 
 Each of the SimpleGraphComponent applications can also be run as a stand alone application to show a
 demonstration of the tool, and the main routine for that code can be used as an exampe of how to implement.
