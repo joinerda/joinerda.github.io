@@ -189,3 +189,7 @@ interacting with the graphics system or learning a more complicated profesional 
 Let me know if you find this helpful or if you use this for any of your classes or pltting needs!
 
 
+
+[Comment on Twitter](https://twitter.com/dajoiner/status/1070363087100960768)
+
+
