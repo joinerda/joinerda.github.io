@@ -50,7 +50,7 @@ As the PERL motto states, TIMTOWTDI! (There is more than one way to do it.)
 
 
 In my main method, I will create an array x, linearly spaced from 0 to 2 $\pi$. I'll write a simple linspace routine to help with this.
-I'll also crete an array $y$, set equal to $sin(x)$.
+I'll also create an array $y$, set equal to $sin(x)$.
 
 ```
 public class MakeSomePlots {
