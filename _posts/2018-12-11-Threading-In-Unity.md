@@ -24,4 +24,11 @@ style debugging.
 
 All of this is to say that threading is worth it, but has its fair share of pain points in the process of implementing it.
 
-This blog will introduce a class that I use to simplify threaded models in Unity. It implements
+This blog will introduce a class that can be used to simplify threading in Unity, called TimestepModel. Timestep model is a
+MonoBehaviour that can be attahced to an object in your scene, and provides an option to perform computation either
+as part of a FixedUpdate routine, or as a separate thread. Threading can be turned on or off using a simple boolean
+flag. The class is abstract, and in extending it you need to provide a "TakeStep(double dt)" method.
+
+Additionally, as a common modeling task to be threaded might be integration of a system of differential equations, 
+an abstract Integrator class will be used to create a model to integrate. Our threaded TimestepModel will have a 
+member variable that extends Integrator, and will move the integration step forward in its threaded step.
