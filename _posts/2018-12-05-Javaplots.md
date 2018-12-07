@@ -41,11 +41,16 @@ empty class to create and plot some data, and copy the Javaplots code into the p
 
 ![New Class](/images/blog_2018_12_05/figure2.png)
 
+The easiest way for a student to link to the Javaplots code is simply to drag the main folder into the source of their project.
+If you are more comfortable with eclipse and Java in general, you might jar the library up and just drop the jar file in your
+project, or you might have Javaplots as its own eclipse project and have other java projects include it in their path definitions.
+As the PERL motto states, TIMTOWTDI! (There is more than one way to do it.)
+
 ![Drag into source](/images/blog_2018_12_05/figure4.png)
 
 
-In main, I will create an array x linearly spaced from 0 to 2 $\pi$. I'll write a simple linspace routine to help with this.
-I'll also crete an array $y$ set equal to $sin(x)$.
+In my main method, I will create an array x, linearly spaced from 0 to 2 $\pi$. I'll write a simple linspace routine to help with this.
+I'll also crete an array $y$, set equal to $sin(x)$.
 
 ```
 public class MakeSomePlots {
@@ -62,7 +67,7 @@ public class MakeSomePlots {
 	public static void main(String[] args) {
 		int n = 100;
 		double [] x = linspace(0,2.0*Math.PI,n);
-    double [] y = new double[n];
+		double [] y = new double[n];
 		
 		for(int i=0;i<n;i++) y[i] = Math.sin(x[i]);
 
