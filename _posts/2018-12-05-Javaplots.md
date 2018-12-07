@@ -124,7 +124,7 @@ Run your code, and you should get a plot of $y=sin(x)$.
 You can add additional arguments for line/marker color and plot type (line/marker/both).
 
 ```
-		sp.setData(x, y,Color.green,SimplePlot.Style.BOTH);
+sp.setData(x, y,Color.green,SimplePlot.Style.BOTH);
 ```
 
 The setData method starts a new plot, but you can add additional data to an existing plot using addData.
