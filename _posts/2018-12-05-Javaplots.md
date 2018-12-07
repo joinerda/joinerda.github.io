@@ -186,7 +186,7 @@ There are fancier plotting packages out there, but I found this approach to be u
 to be able to give my students the ability to plot data we were calculating without having to learn too much about
 interacting with the graphics system or learning a more complicated profesional grade plotting system.
 
-Let me know if you find this helpful or if you use this for any of your classes or pltting needs!
+Let me know if you find this helpful or if you use this for any of your classes or plotting needs!
 
 
 
