@@ -199,7 +199,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SHOIntergator : Integrator {
+public class SHOIntegrator : Integrator {
 
 }
 ```
@@ -218,7 +218,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SHOIntergator : Integrator {
+public class SHOIntegrator : Integrator {
 
 	double k = 1;
 	double m = 1;
@@ -240,11 +240,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SHOIntergator : Integrator {
+public class SHOIntegrator : Integrator {
 
 	double k = 1;
 	double m = 1;
-	double [] x;
+	public double [] x;
 
 	public void SetIC(double x0, double v0) {
 		x = new double[2];
@@ -288,6 +288,106 @@ public class SHOModel : MonoBehaviour {
 ```
 
 Save everything and drag ObjectToMove into the space for "ObjectToMove" in the inspector for SHOModel. Save your scene if you haven't already.
+
+Also add a member variable for our SHOIntegrator object in SHOModel. In SHOModel::Start, call SetIC for our SHOIntegrator object.
+
+```
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class SHOModel : MonoBehaviour {
+
+	public GameObject objectToMove;
+	SHOIntegrator theIntegrator;
+
+	// Use this for initialization
+	void Start () {
+		theIntegrator = new SHOIntegrator ();
+		theIntegrator.SetIC (1, 0);
+		
+	}
+	
+	// Update is called once per frame
+	void Update () {
+		
+	}
+}
+```
+
+Finally, in Update let's call RK4Step, and update the position of objectToMove. RK4Step required a time and timestep variable, so we'll add those as member variables.
+
+
+```
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class SHOModel : MonoBehaviour {
+
+	public GameObject objectToMove;
+	SHOIntegrator theIntegrator;
+	double t = 0.0;
+	double h = 0.01;
+
+	// Use this for initialization
+	void Start () {
+		theIntegrator = new SHOIntegrator ();
+		theIntegrator.SetIC (1, 0);
+		
+	}
+	
+	// Update is called once per frame
+	void Update () {
+		t = theIntegrator.RK4Step (theIntegrator.x, t, h);
+		Vector3 pos = objectToMove.transform.position;
+		pos.x = (float)theIntegrator.x [0];
+		objectToMove.transform.position = pos;
+	}
+}
+```
+
+Save everything, (fix any syntax errors), and press play.
+
+Depending on what you've chosen for your timestep and the framerate of your machine, you may find this is running slower than you expect. Let's move the calculation into FixedUpdate instead.
+
+```
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class SHOModel : MonoBehaviour {
+
+	public GameObject objectToMove;
+	SHOIntegrator theIntegrator;
+	double t = 0.0;
+	double h = 0.01;
+
+	// Use this for initialization
+	void Start () {
+		theIntegrator = new SHOIntegrator ();
+		theIntegrator.SetIC (1, 0);
+		
+	}
+
+	void FixedUpdate() {
+		t = theIntegrator.RK4Step (theIntegrator.x, t, h);
+	}
+	
+	// Update is called once per frame
+	void Update () {
+		Vector3 pos = objectToMove.transform.position;
+		pos.x = (float)theIntegrator.x [0];
+		objectToMove.transform.position = pos;
+	}
+}
+```
+
+One more thing you might try to do to speed up the simulation is see if you can get FixedUpdate to run more often. Go to Edit->Project Settings->Time and adjust the value of Fixed Step to be something smaller (the default is 0.02 seconds, try changing it to 0.005). Save everything and run.
+
+For a very simple calculation, calling FixedUpdate with a smaller step may help, but there is a limit to how many times this can be done each frame. A better solution would be to separate out computation from GUI completely, but that's another post.
+
+This example, however, shows how you can have a model object that calls an integration derived from Integrator, update it regularly, and tie it to separate game objects in the scene.
 
 
 
