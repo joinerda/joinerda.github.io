@@ -15,7 +15,9 @@ The Integrator object presented in this blog provides an abstract object that ca
 
 Let's return to the Simple Harmonic Oscillator model, using the Integrator class. The process will be as follows. We will create a general Model object that contains a reference to SHOIntegrator, which we will also build. The Model will be a monobehaviour that connects to objects in the scene. One member variable of Model will be the SHOIntegrator, which will derive from Integrator, and provides a routine RK4Step that will calculate the next step forward in the integration.
 
-The Integrator class can be downloaded from github at https://github.com/joinerda/unity-modeling-toolkit .
+The Integrator class can be downloaded from github at https://github.com/joinerda/unity-modeling-toolkit , or you can copy and paste into a file in your Assets folder called Integrator.cs.
+
+Open a new Unity project, and copy Interator.cs into the Assets folder.
 
 ```
 // Integrator.cs
@@ -187,3 +189,108 @@ abstract public class Integrator  {
 
 }
 ```
+
+We will create a script that extends Integrator, called SHOIntegrator. Right click in the project panel and create a new C# script called SHOIntegrator. Change the class heading created by default so that instead of extending MonoBehaviour, extend Integrator.
+
+Remove the default Update and Start routines as those are related to MonoBehaviour, and SHOIntegrator is not extending MonoBehaviour.
+
+```
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class SHOIntergator : Integrator {
+
+}
+```
+
+We will add member variables to SHOIntegrator for the SHO simulation, for the spring stiffness $k$ and oscillator mass $m$. We will also override the RatesOfChange method in Integrator to return the rates of change in the SHO simulation.
+
+$$
+\dot{x} = v 
+\dot{v} = -(k/m) x
+$$
+
+The RatesOfChange routine will take as an argument an array of all of the dependent varaiables being integrated, as a 1-D array. Anytime we use a standard integrator library, this will be a common practice--to map the variables being integrated to a 1-D array. Sometimes this will be fairly straightforward, such as mapping $x$ to position 0 and $v$ to position 1. Other systems of ODEs may not be as straight forward to map to a 1-D array.
+
+```
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class SHOIntergator : Integrator {
+
+	double k = 1;
+	double m = 1;
+
+	public override void RatesOfChange (double[] x, double[] xdot, double t)
+	{
+		xdot [0] = x [1];
+		xdot [1] = -(k / m) * x [0];
+	}
+
+}
+
+```
+
+We will add an array x to store our state variables, and allocate it to be 2 elements long. Additionally, it will be easier to set up the initialization of the Integrator class (called with the Init(int nEquations) method) and all initial conditions if we have a single method to do so.
+
+```
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class SHOIntergator : Integrator {
+
+	double k = 1;
+	double m = 1;
+	double [] x;
+
+	public void SetIC(double x0, double v0) {
+		x = new double[2];
+		Init (2); // allocates memory for Integrator varaibles
+		x [0] = x0;
+		x [1] = v0;
+	}
+
+	public override void RatesOfChange (double[] x, double[] xdot, double t)
+	{
+		xdot [0] = x [1];
+		xdot [1] = -(k / m) * x [0];
+	}
+
+}
+```
+
+To put this into our scene, we need something with a MonoBehaviour. Let's create a empty game object called SHOModel, and attach a new C# script to it, also called SHOModel. Also add a sphere to the scene, and name it ObjectToMove.
+
+In the SHOModel script, add a variable to hold a reference to the sphere in our scene.
+
+```
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class SHOModel : MonoBehaviour {
+
+	public GameObject objectToMove;
+
+	// Use this for initialization
+	void Start () {
+		
+	}
+	
+	// Update is called once per frame
+	void Update () {
+		
+	}
+}
+```
+
+Save everything and drag ObjectToMove into the space for "ObjectToMove" in the inspector for SHOModel. Save your scene if you haven't already.
+
+
+
+
+
+
