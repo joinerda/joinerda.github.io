@@ -51,9 +51,8 @@ public abstract class TimestepModel : MonoBehaviour {
 	bool stepFree = true;
 	bool stepRunning = false;
 	public float modelT = 0.0f;
-	float timescale = 1.0f;
 
-	bool threaded = true;
+	public bool threaded = true;
 	bool fastrun = true;
 	bool paused = false;
 
@@ -93,7 +92,7 @@ public abstract class TimestepModel : MonoBehaviour {
 				if (stepFree || fastrun)
 				{
 					stepRunning = true;
-					TakeStep(modelDT*timescale);
+					TakeStep(modelDT);
 					modelT += modelDT;//am I doing this twice?
 					stepRunning = false;
 				}
@@ -146,6 +145,124 @@ public abstract class TimestepModel : MonoBehaviour {
 ```
 
 Note that our script includes System.Threading as a library, and includes a member variable of type Thread. in ModelStart, the thread is instantiated and started with a method of ThreadedActions, also defined in the class. In the destructor, the thread is stopped and destroyed. ThreadedActions uses the abstract method TakeStep, which we will define in our class that extends from TimestepModel, and also provides some logic that allows the GUI to lock the thread to avoid a race condition. We can request the thread pause using the Pause method.
+
+To begin, let's change SHOModel from last time so that instead of extending MonoBehaviour, it extends TimestepModel. This will require providing an override for TakeStep, go ahead and do that as a placeholder so that the script will compile.
+
+```
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class SHOModel : TimestepModel {
+
+	public GameObject objectToMove;
+	SHOIntegrator theIntegrator;
+	double t = 0.0;
+	double h = 0.01;
+
+	public override void TakeStep (float dt) {
+	}
+
+
+	// Use this for initialization
+	void Start () {
+		theIntegrator = new SHOIntegrator ();
+		theIntegrator.SetIC (1, 0);
+		
+	}
+
+	void FixedUpdate() {
+		t = theIntegrator.RK4Step (theIntegrator.x, t, h);
+	}
+	
+	// Update is called once per frame
+	void Update () {
+		Vector3 pos = objectToMove.transform.position;
+		pos.x = (float)theIntegrator.x [0];
+		objectToMove.transform.position = pos;
+	}
+}
+```
+
+To use TimestepModel, we need to provide our TakeStep routine, and we need to call TimestepModel's ModelStart method in our classes Start routine. Add ModelStart() to Start, and move the RK$Step call from FixedUpdate to TakeStep. Notice that TakeStep gets its value of h from TimestepModel, so we do not want a hard-coded value of h.
+
+```
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class SHOModel : TimestepModel {
+
+	public GameObject objectToMove;
+	SHOIntegrator theIntegrator;
+	double t = 0.0;
+
+	public override void TakeStep (float dt) {
+		t = theIntegrator.RK4Step (theIntegrator.x, t, dt);
+	}
+
+
+	// Use this for initialization
+	void Start () {
+		theIntegrator = new SHOIntegrator ();
+		theIntegrator.SetIC (1, 0);
+		ModelStart ();
+	}
+
+	void FixedUpdate() {
+	}
+	
+	// Update is called once per frame
+	void Update () {
+		Vector3 pos = objectToMove.transform.position;
+		pos.x = (float)theIntegrator.x [0];
+		objectToMove.transform.position = pos;
+	}
+}
+```
+
+Save everything and go back to your editor. Run the model. Notice the speed difference between the threaded and non-threaded version. "threaded" is a public boolean variable in TimestepModel, and you can set whether the object should run as threaded or not before playing the editor. (Note that the non-threaded action in TimestepModel runs in FixedUpdate, so if you create an extension of TimestepModel that also defines FixedUpdate you should be sure to call the base class version of the method).
+
+```
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class SHOModel : TimestepModel {
+
+	public GameObject objectToMove;
+	SHOIntegrator theIntegrator;
+	double t = 0.0;
+
+	public override void TakeStep (float dt) {
+		t = theIntegrator.RK4Step (theIntegrator.x, t, dt);
+	}
+
+
+	// Use this for initialization
+	void Start () {
+		theIntegrator = new SHOIntegrator ();
+		theIntegrator.SetIC (1, 0);
+		ModelStart ();
+	}
+
+	void FixedUpdate() {
+		base.FixedUpdate (); // either do not provide FixedUpate or include call to base.FixedUpdate()
+	}
+	
+	// Update is called once per frame
+	void Update () {
+		Vector3 pos = objectToMove.transform.position;
+		pos.x = (float)theIntegrator.x [0];
+		objectToMove.transform.position = pos;
+	}
+}
+```
+
+Make Model DT smaller in the editor and compare the difference in the running speed of this simple model using threading versus using FixedUpate.
+
+For the next blog, I'll use the N-Body problem to show how you can use threading to handle the other extreme, calculations that would otherwise take so long that it would freeze up the GUI to try to do them in the standard Unity game loop.
+
 
 
 
