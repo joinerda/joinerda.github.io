@@ -34,3 +34,121 @@ an abstract Integrator class will be used to create a model to integrate. (If yo
 
 If you don't have the last blogs model ready to go, it can be obtained [here](/files/blog_2018_12_11/IntegratorExample.zip)
 
+This blog will build off of the TimestepModel class, which you can get from the UMT, or you can copy and paste from below.
+
+```
+using UnityEngine;
+using System.Collections;
+using System.Threading;
+
+
+public abstract class TimestepModel : MonoBehaviour {
+
+	public float modelDT = 0.01f;
+	public Thread modelThread;
+
+ 	bool threadRunning = true;
+	bool stepFree = true;
+	bool stepRunning = false;
+	public float modelT = 0.0f;
+	float timescale = 1.0f;
+
+	bool threaded = true;
+	bool fastrun = true;
+	bool paused = false;
+
+	static readonly object _locker = new object();
+
+	~TimestepModel() {
+		Thread.Sleep (0);
+		modelThread.Abort ();
+	}
+
+	public bool GetThreaded()
+	{
+		return threaded;
+	}
+
+	// Use this for initialization
+	public void ModelStart()
+	{
+		modelT = 0.0f;
+		// create thread before finishing Start
+		if (threaded)
+		{
+			modelThread = new Thread(this.ThreadedActions);
+			modelThread.Start();
+		}
+
+	}
+
+	public void ThreadedActions()
+	{
+		while (threadRunning)
+		{
+			Thread.Sleep (0);
+
+			try
+			{
+				if (stepFree || fastrun)
+				{
+					stepRunning = true;
+					TakeStep(modelDT*timescale);
+					modelT += modelDT;//am I doing this twice?
+					stepRunning = false;
+				}
+				if (!fastrun)
+					lock (_locker)
+					{
+						stepFree = false;
+					}
+			}
+			//(ThreadAbortException ex) 
+			catch
+			{
+				threadRunning = false;
+			}
+		}
+	}
+		
+	void FixedUpdate()
+	{
+		if (threaded)
+		{
+			lock (_locker)
+			{
+				stepFree = true;
+			}
+		}
+		else
+		{
+			stepRunning = true;
+			TakeStep(modelDT);
+			modelT += modelDT;
+			stepRunning = false;
+		}
+	}
+
+	public void Pause(bool yesNo)
+	{
+		lock (_locker)
+		{
+			stepFree = false;
+			// would a lock be more efficient here?
+			while (stepRunning) { } // wait for step to finish to avoid race condition
+			// grow array if needed
+			paused = yesNo;
+		}
+	}
+
+	public abstract void TakeStep (float dt);
+}
+```
+
+Note that our script includes System.Threading as a library, and includes a member variable of type Thread. in ModelStart, the thread is instantiated and started with a method of ThreadedActions, also defined in the class. In the destructor, the thread is stopped and destroyed. ThreadedActions uses the abstract method TakeStep, which we will define in our class that extends from TimestepModel, and also provides some logic that allows the GUI to lock the thread to avoid a race condition. We can request the thread pause using the Pause method.
+
+
+
+
+
+
