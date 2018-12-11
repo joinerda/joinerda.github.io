@@ -389,6 +389,7 @@ For a very simple calculation, calling FixedUpdate with a smaller step may help,
 
 This example, however, shows how you can have a model object that calls an integration derived from Integrator, update it regularly, and tie it to separate game objects in the scene.
 
+You can download a solution [here](/files/blog_2018_12_11/IntegratorExample.zip)
 
 
 
