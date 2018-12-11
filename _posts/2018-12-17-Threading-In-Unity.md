@@ -32,4 +32,5 @@ flag. The class is abstract, and in extending it you need to provide a "TakeStep
 Additionally, as a common modeling task to be threaded might be integration of a system of differential equations, 
 an abstract Integrator class will be used to create a model to integrate. (If you went through the last post, we'll use that SHOIntegrator as our example.) Our threaded TimestepModel will have a member variable that extends Integrator, and will move the integration step forward in its threaded step.
 
-If you don't have the last blogs model ready to go, 
+If you don't have the last blogs model ready to go, it can be obtained [here](/files/blog_2018_12_11/IntegratorExample.zip)
+
