@@ -13,7 +13,7 @@ If your model is really simple, there is a risk that running the GUI will slow d
 
 If you model consumes a large deal of CPU time, there is a risk that running your model will freeze your GUI.
 
-The best practice is to spearate out modeling from GUI-ing, so that the two can run independently. Typically
+The best practice is to separate out modeling from GUI-ing, so that the two can run independently. Typically
 we would do this by running the modle in a Thread. C# as a language does prvide threading features taht are easy to use.
 There is one catch, though.
 
@@ -30,5 +30,6 @@ as part of a FixedUpdate routine, or as a separate thread. Threading can be turn
 flag. The class is abstract, and in extending it you need to provide a "TakeStep(double dt)" method.
 
 Additionally, as a common modeling task to be threaded might be integration of a system of differential equations, 
-an abstract Integrator class will be used to create a model to integrate. Our threaded TimestepModel will have a 
-member variable that extends Integrator, and will move the integration step forward in its threaded step.
+an abstract Integrator class will be used to create a model to integrate. (If you went through the last post, we'll use that SHOIntegrator as our example.) Our threaded TimestepModel will have a member variable that extends Integrator, and will move the integration step forward in its threaded step.
+
+If you don't have the last blogs model ready to go, 
