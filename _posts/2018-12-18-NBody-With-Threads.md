@@ -20,3 +20,9 @@ where
 $$
 \vec{r}_{ij} = \vec{r}_j-\vec{r}_i
 $$
+
+and
+
+$$
+r_{ij} = |\vec{r}_{ij}|
+$$
