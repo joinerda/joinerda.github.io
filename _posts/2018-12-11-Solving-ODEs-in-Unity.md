@@ -391,7 +391,8 @@ This example, however, shows how you can have a model object that calls an integ
 
 You can download a solution [here](/files/blog_2018_12_11/IntegratorExample.zip)
 
-https://twitter.com/dajoiner/status/1072956878861332481
+
+[Comment on Twitter](https://twitter.com/dajoiner/status/1072956878861332481)
 
 
 
