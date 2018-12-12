@@ -264,7 +264,7 @@ Make Model DT smaller in the editor and compare the difference in the running sp
 For the next blog, I'll use the N-Body problem to show how you can use threading to handle the other extreme, calculations that would otherwise take so long that it would freeze up the GUI to try to do them in the standard Unity game loop.
 
 
-[Comment on Twitter](https://twitter.com/dajoiner/status/1072956878861332481)
+[Comment on Twitter](https://twitter.com/dajoiner/status/1072957626189787136)
 
 
 
