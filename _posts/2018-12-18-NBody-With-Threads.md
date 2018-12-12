@@ -26,3 +26,5 @@ and
 $$
 r_{ij} = |\vec{r}_{ij}|
 $$
+
+For simplicity, we're going to use a unit system in our simulation such that $G=1$, each mass is equal and $\sum{m_i}=M=1$, and all of our objects start off in a space roughly 1 unit around the origin.
