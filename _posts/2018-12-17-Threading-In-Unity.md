@@ -2,7 +2,7 @@
 layout: post
 title: Threading
 use_math: true
-draft: true
+draft: false
 ---
 
 The fundamental dynamic in any GUI driven simulation is the interplay between the GUI and the simulation.
