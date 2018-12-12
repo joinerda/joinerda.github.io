@@ -2,7 +2,7 @@
 layout: post
 title: Solving ODEs in Unity
 use_math: true
-draft: true
+draft: false
 ---
 
 One of the most common tasks in modeling and simulation is the integration of a system of ODEs.
