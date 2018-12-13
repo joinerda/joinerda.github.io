@@ -14,7 +14,7 @@ If your model is really simple, there is a risk that running the GUI will slow d
 If you model consumes a large deal of CPU time, there is a risk that running your model will freeze your GUI.
 
 The best practice is to separate out modeling from GUI-ing, so that the two can run independently. Typically
-we would do this by running the modle in a Thread. C# as a language does prvide threading features taht are easy to use.
+we would do this by running the model in a Thread. C# as a language does provide threading features that are easy to use.
 There is one catch, though.
 
 Unity is not a thread safe application. You can't call the Unity API from anything other than the main thread.
@@ -25,14 +25,14 @@ style debugging.
 All of this is to say that threading is worth it, but has its fair share of pain points in the process of implementing it.
 
 This blog will introduce a class that can be used to simplify threading in Unity, called TimestepModel. Timestep model is a
-MonoBehaviour that can be attahced to an object in your scene, and provides an option to perform computation either
+MonoBehaviour that can be attached to an object in your scene, and provides an option to perform computation either
 as part of a FixedUpdate routine, or as a separate thread. Threading can be turned on or off using a simple boolean
 flag. The class is abstract, and in extending it you need to provide a "TakeStep(double dt)" method.
 
 Additionally, as a common modeling task to be threaded might be integration of a system of differential equations, 
 an abstract Integrator class will be used to create a model to integrate. (If you went through the last post, we'll use that SHOIntegrator as our example.) Our threaded TimestepModel will have a member variable that extends Integrator, and will move the integration step forward in its threaded step.
 
-If you don't have the last blogs model ready to go, it can be obtained [here](/files/blog_2018_12_11/IntegratorExample.zip)
+If you don't have the last blog's model ready to go, it can be obtained [here](/files/blog_2018_12_11/IntegratorExample.zip)
 
 This blog will build off of the TimestepModel class, which you can get from the UMT, or you can copy and paste from below.
 

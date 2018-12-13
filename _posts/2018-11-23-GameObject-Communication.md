@@ -39,9 +39,9 @@ Once that is done, drag Body from the hierarchy panel to the project panel. This
 
 What we are going to do initially is create a string of Body objects, all in a row. Each of these objects will have a link to objects on the right and left, which we will set in the editor. Our leftmost and rightmost object will be fixed in place, and all of them will be modeled to move as if connected in line by a series of springs. Each object will move as an oscillator, as in the last blog, but the spring forces will be determined by a relaxed length of each spring and by the position of the objects to the left and right.
 
-This will allow us to see one method of creating a model in unity, where each instance of an object has its own rules for recognizing its surroundings and interacting with them. This approach has strengths and weaknesses. On the plus side, it's easy to think of objects as "objects" in the computer science sense using this approach, and to think of the rules that individual objects follow. However, it may not be as efficient as keeping a seperate numerical model that we simply attach objects to for the purposes of visualization. This can be a good way to get started, and you can rethink how you structure your models when you find that efficiency has become more important.
+This will allow us to see one method of creating a model in unity, where each instance of an object has its own rules for recognizing its surroundings and interacting with them. This approach has strengths and weaknesses. On the plus side, it's easy to think of objects as "objects" in the computer science sense using this approach, and to think of the rules that individual objects follow. However, it may not be as efficient as keeping a separate numerical model that we simply attach objects to for the purposes of visualization. This can be a good way to get started, and you can rethink how you structure your models when you find that efficiency has become more important.
 
-Double click your Body script (or whatever you chose to call it) to open it. To begin with, let's have each object store a variable for other objects to the left and right. We will mke these variables public, so that they are visuble to the editor and we can set them in the editor. We will make these variables of type GameObject as we are going to store the actual game object in unity attached to the left or right. Set the initial value to null so that we can have a default case be no objects attached, useful for knowing which objects are at the end.
+Double click your Body script (or whatever you chose to call it) to open it. To begin with, let's have each object store a variable for other objects to the left and right. We will make these variables public, so that they are visible to the editor and we can set them in the editor. We will make these variables of type GameObject as we are going to store the actual game object in unity attached to the left or right. Set the initial value to null so that we can have a default case be no objects attached, useful for knowing which objects are at the end.
 
 ```
 using System.Collections;
@@ -65,22 +65,22 @@ public class Body : MonoBehaviour {
 }
 ```
 
-Save your script and go back to the Unity editor. GIve it a few seconds to refresh, and highlight the Body object in your heirarchy panel. Check to see that the "Body (Script)" component now has two fields for Left and Right. If it doesn't, check your console panel to see if there are any syntax errors in your script.
+Save your script and go back to the Unity editor. GIve it a few seconds to refresh, and highlight the Body object in your hierarchy panel. Check to see that the "Body (Script)" component now has two fields for Left and Right. If it doesn't, check your console panel to see if there are any syntax errors in your script.
 
-![public feilds in editor](/images/blog_2018_11_23/figure7.png)
+![public fields in editor](/images/blog_2018_11_23/figure7.png)
 
 
-Drag two more prefab "Body" objects onto the heirarchy panel from the Project panel.
+Drag two more prefab "Body" objects onto the hierarchy panel from the Project panel.
 
 ![drag back to scene](/images/blog_2018_11_23/figure8.png)
 
 
-Switch your main view to the scene panel if it is not there already. Move two of the Body objects along the x-axis. You can do this either by selecting the object in the heirarchy, and changing the transform position in the inspector, or you can select the move tool in the upper left corner of the editor window and drag it into place.
+Switch your main view to the scene panel if it is not there already. Move two of the Body objects along the x-axis. You can do this either by selecting the object in the hierarchy, and changing the transform position in the inspector, or you can select the move tool in the upper left corner of the editor window and drag it into place.
 
 ![move objects in scene](/images/blog_2018_11_23/figure9.png)
 
 
-Move your objects so that they are at positions of roughly -2, 0, and 2 along the x axis, and 0 in y and z. I will rename my scene objects to make it a little easier to keep them apart as left (at -2), middle, and right. Highlighting left in the heirarchy panel to open it in the inspector, drag middle from the hierarchy panel into the spot marked "right" for the "left" object now showing in the inspector (the middle object is to the right of the leftmost object).
+Move your objects so that they are at positions of roughly -2, 0, and 2 along the x axis, and 0 in y and z. I will rename my scene objects to make it a little easier to keep them apart as left (at -2), middle, and right. Highlighting left in the hierarchy panel to open it in the inspector, drag middle from the hierarchy panel into the spot marked "right" for the "left" object now showing in the inspector (the middle object is to the right of the leftmost object).
 
 ![rename scene objects](/images/blog_2018_11_23/figure10.png)
 
@@ -92,7 +92,7 @@ Repeat this for middle (left is to the left, right is to the right), and for rig
 
 Now it is possible for each object to know which other objects they are connected to, and to get information about those other objects.
 
-Open up the Body script again, and lets add a default "spring length" l which we will set equal to 2, a mass m=1, a initial velocity=0, and a stiffness k=1. Unity tends to work in float by defaul, which isn't great from a precision point of view but will be good enough for this example, so for now we will stick with floats for our real numbers.
+Open up the Body script again, and lets add a default "spring length" l which we will set equal to 2, a mass m=1, a initial velocity=0, and a stiffness k=1. Unity tends to work in float by default, which isn't great from a precision point of view but will be good enough for this example, so for now we will stick with floats for our real numbers.
 
 ```
 using System.Collections;
@@ -291,7 +291,7 @@ public class Body : MonoBehaviour {
 }
 ```
 
-Save your script, and go back to the unity editor. Select the middlemost object in the scene, and look at it in the inspector. Notice that you can now modify m for that object in the editor. This value will override whatever is in the script. Set the middlemost mass to something very large, or very small. Play the model. Do you notice the change in behaviour?
+Save your script, and go back to the unity editor. Select the middlemost object in the scene, and look at it in the inspector. Notice that you can now modify m for that object in the editor. This value will override whatever is in the script. Set the middlemost mass to something very large, or very small. Play the model. Do you notice the change in behavior?
 
 ![change masses in editor](/images/blog_2018_11_23/figure13.png)
 

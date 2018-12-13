@@ -9,7 +9,7 @@ This model will extend from our previous example of using TimestepModel to build
 
 This time, though, let's build something that will require a great deal more work per step.
 
-The gravitational N-Body problem describes the behaviour of objects in space attracted to each other via gravity. Each object will feel a force of
+The gravitational N-Body problem describes the behavior of objects in space attracted to each other via gravity. Each object will feel a force of
 
 $$
 \vec{F}_i = \sum_j{G \frac{m_i m_j}{r_{ij}^2}  \frac{\vec{r}_{ij}}{r_{ij}}}

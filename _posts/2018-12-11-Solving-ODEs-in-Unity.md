@@ -7,17 +7,17 @@ draft: false
 
 One of the most common tasks in modeling and simulation is the integration of a system of ODEs.
 
-Unity has a built-in runtime loop with some level of flexibility, with two different options for iterated methods (Update every screem, FixedUpdate at attempted regular time intervals). While a fully threaded approach to separating out computation from GUI is ideal (there will be a later blog post about this), when introducing students to modeling in Unity I typically start simple, with an Euler's method solution to a simple problem iterated in the Update routine.
+Unity has a built-in runtime loop with some level of flexibility, with two different options for iterated methods (Update every screen, FixedUpdate at attempted regular time intervals). While a fully threaded approach to separating out computation from GUI is ideal (there will be a later blog post about this), when introducing students to modeling in Unity I typically start simple, with an Euler's method solution to a simple problem iterated in the Update routine.
 
 Quickly, however, most student projects will reach a point where Euler's method, though simple to implement, is not usable for any project of interest.
 
-The Integrator object presented in this blog provides an abstract object that can be extended to include a method calculating rates of change, and has built in methods for stepping those rates of change forward with a range of numerical integration algorithms. (As of this writing it includes only Runge Kutta 4th order and Adams-Baskforth-Moulton Predictor-Corrector algorithms, but that should shortly expand to include additional options for adaptive, backwards euler, and 4th order symplectic routines.)
+The Integrator object presented in this blog provides an abstract object that can be extended to include a method calculating rates of change, and has built in methods for stepping those rates of change forward with a range of numerical integration algorithms. (As of this writing it includes only Runge Kutta 4th order and Adams-Bashforth-Moulton Predictor-Corrector algorithms, but that should shortly expand to include additional options for adaptive, backwards Euler, and 4th order symplectic routines.)
 
-Let's return to the Simple Harmonic Oscillator model, using the Integrator class. The process will be as follows. We will create a general Model object that contains a reference to SHOIntegrator, which we will also build. The Model will be a monobehaviour that connects to objects in the scene. One member variable of Model will be the SHOIntegrator, which will derive from Integrator, and provides a routine RK4Step that will calculate the next step forward in the integration.
+Let's return to the Simple Harmonic Oscillator model, using the Integrator class. The process will be as follows. We will create a general Model object that contains a reference to SHOIntegrator, which we will also build. The Model will be a MonoBehaviour that connects to objects in the scene. One member variable of Model will be the SHOIntegrator, which will derive from Integrator, and provides a routine RK4Step that will calculate the next step forward in the integration.
 
-The Integrator class can be downloaded from github at https://github.com/joinerda/unity-modeling-toolkit , or you can copy and paste into a file in your Assets folder called Integrator.cs.
+The Integrator class can be downloaded from GitHub at https://github.com/joinerda/unity-modeling-toolkit , or you can copy and paste into a file in your Assets folder called Integrator.cs.
 
-Open a new Unity project, and copy Interator.cs into the Assets folder.
+Open a new Unity project, and copy Integrator.cs into the Assets folder.
 
 ```
 // Integrator.cs
@@ -211,7 +211,7 @@ $$
 \dot{v} = -(k/m) x
 $$
 
-The RatesOfChange routine will take as an argument an array of all of the dependent varaiables being integrated, as a 1-D array. Anytime we use a standard integrator library, this will be a common practice--to map the variables being integrated to a 1-D array. Sometimes this will be fairly straightforward, such as mapping $x$ to position 0 and $v$ to position 1. Other systems of ODEs may not be as straight forward to map to a 1-D array.
+The RatesOfChange routine will take as an argument an array of all of the dependent variables being integrated, as a 1-D array. Anytime we use a standard integrator library, this will be a common practice--to map the variables being integrated to a 1-D array. Sometimes this will be fairly straightforward, such as mapping $x$ to position 0 and $v$ to position 1. Other systems of ODEs may not be as straight forward to map to a 1-D array.
 
 ```
 using System.Collections;
@@ -248,7 +248,7 @@ public class SHOIntegrator : Integrator {
 
 	public void SetIC(double x0, double v0) {
 		x = new double[2];
-		Init (2); // allocates memory for Integrator varaibles
+		Init (2); // allocates memory for Integrator variables
 		x [0] = x0;
 		x [1] = v0;
 	}

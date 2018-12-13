@@ -50,7 +50,7 @@ We will start by creating a sphere in the scene. You can use the create menu at 
 At some point before you get too far along, go to the file menu and save your scene. Any name is OK. I name my main scenes Main. Save every so often if you make changes to the scene.
 To change the way the object operates in the scene, we want to add a script to the object. In the inspector panel, add a new script component and give it a meaningful name. (I'm going to use the name Oscillator, but you can call yours anything you want.) 
  
-![select sphere in heirarchy](/images/blog_2018_11_20/figure2.png)
+![select sphere in hierarchy](/images/blog_2018_11_20/figure2.png)
 
 ![add component in inspector](/images/blog_2018_11_20/figure3.png)
 
@@ -101,7 +101,7 @@ public class Oscillator : MonoBehaviour {
 ```
 
 
-Let's use the Start routine to set "x" based on the position of the object in the scene. Going back to the Unity editor, select the sphere object in the heirarchy panel and notice what is displayed in the top of the inspector for this object. The first component for the object is the "Transform". A game objects transform provides information about its location, rotation, and scale within the scene.
+Let's use the Start routine to set "x" based on the position of the object in the scene. Going back to the Unity editor, select the sphere object in the hierarchy panel and notice what is displayed in the top of the inspector for this object. The first component for the object is the "Transform". A game objects transform provides information about its location, rotation, and scale within the scene.
 Change the x value of the objects position. You can type it in manually, or move the object in the x direction in the scene panel.
  
  

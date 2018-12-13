@@ -174,7 +174,7 @@ public class MakeSomePlots {
 ~~~
 
 Each of the SimpleGraphComponent applications can also be run as a stand alone application to show a
-demonstration of the tool, and the main routine for that code can be used as an exampe of how to implement.
+demonstration of the tool, and the main routine for that code can be used as an example of how to implement.
 
 ![Boxplot example](/images/blog_2018_12_05/figure6.png)
 
@@ -182,9 +182,9 @@ demonstration of the tool, and the main routine for that code can be used as an 
 
 ![Heatmap example](/images/blog_2018_12_05/figure8.png)
 
-There are fancier plotting packages out there, but I found this approach to be useful for me in my introdcutory Java classes
+There are fancier plotting packages out there, but I found this approach to be useful for me in my introductory Java classes
 to be able to give my students the ability to plot data we were calculating without having to learn too much about
-interacting with the graphics system or learning a more complicated profesional grade plotting system.
+interacting with the graphics system or learning a more complicated professional grade plotting system.
 
 Let me know if you find this helpful or if you use this for any of your classes or plotting needs!
 
