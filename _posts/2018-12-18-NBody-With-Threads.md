@@ -443,10 +443,7 @@ Play around with different values of N to see how this threaded version of the m
 
 (As I type this I am force-quitting Unity...)
 
-
-
-https://twitter.com/dajoiner/status/1074732321654353922
-
+[Comment on Twitter](https://twitter.com/dajoiner/status/1074732321654353922)
 
 
 
