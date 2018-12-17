@@ -2,7 +2,7 @@
 layout: post
 title: N-Body in Unity With Threads
 use_math: true
-draft: true
+draft: false
 ---
 
 This model will extend from our previous example using TimestepModel. We will build a class that uses a threaded update method, like before, and will use that update method to integrate forward a system of orindary differential equations.
