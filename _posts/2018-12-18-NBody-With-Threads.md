@@ -5,9 +5,12 @@ use_math: true
 draft: true
 ---
 
-This model will extend from our previous example of using TimestepModel to build an extension of MonoBehaviour with a threaded update method called with a calculated timestep.
+This model will extend from our previous example using TimestepModel. We will build a class that uses a threaded update method, like before, and will use that update method to integrate forward a system of orindary differential equations.
 
-This time, though, let's build something that will require a great deal more work per step.
+Our simple example showed performance gains by separating out the computation from the Unity scene loop, but how will a more complicated problem behave?
+
+Let's build something that will require a great deal more work per step. This example will walk through implementing a solution and visualization of the gravitational N-Body problem.
+
 
 The gravitational N-Body problem describes the behavior of objects in space attracted to each other via gravity. Each object will feel a force of
 
@@ -28,6 +31,8 @@ r_{ij} = |\vec{r}_{ij}|
 $$
 
 For simplicity, we're going to use a unit system in our simulation such that $G=1$, each mass is equal and $\sum{m_i}=M=1$, and all of our objects start off in a space roughly 1 unit around the origin.
+
+(As an aside, scaling your units helps to keep your numbers at an order of magnitude near unity, which is good for preventing overflow and underflow errors in your computation, and keeps your scene sizes closer to typical in your Unity visualization. The easiest way to scale the gravitational N-Body problem is to set a value of G that matches the other units you want to use. If you want to use specific values in your own choice of units, the easiest thing to do is figure out what $G$ is in your unit system. Since G is typically given in SI, just figure out your units in SI values, and then $G_{scaled}=6.6740831e-11 UnitMass_{SI} UnitTime^2_{SI} UnitLength^{-3}_{SI}$.)
 
 Our overall process will be to create an empty GameObject in our scene, and attach a script to it called Model that will extend TimestepModel. We will create and initialize an array of values for the positions and velocities of all of our objects. We will create a second script that extends Integrator called NBody. In this script, we will create a RatesOfChange routine that implements the forces listed above. In Model, we will have a member variable of type NBody. Model's TakeStep method will have our member variable of type NBody call the RK4Step method. In Model, we will create a spherical game object via scripting for each body, and in Model's update routine, we will at each screen update the position of each sphere to the corresponding coordinates of each body in the calculation.
 
