@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Threading
+title: N-Body in Unity With Threads
 use_math: true
 draft: true
 ---
@@ -34,7 +34,7 @@ For simplicity, we're going to use a unit system in our simulation such that $G=
 
 (As an aside, scaling your units helps to keep your numbers at an order of magnitude near unity, which is good for preventing overflow and underflow errors in your computation, and keeps your scene sizes closer to typical in your Unity visualization. The easiest way to scale the gravitational N-Body problem is to set a value of G that matches the other units you want to use. If you want to use specific values in your own choice of units, the easiest thing to do is figure out what $G$ is in your unit system. Since G is typically given in SI, just figure out your units in SI values, and then
 $$
-G_{scaled}=6.6740831e-11$ $UnitMass_{SI}$ $UnitTime^2_{SI}$  $UnitLength^{-3}_{SI}
+G_{scaled}=6.6740831e-11 UnitMass_{SI} UnitTime^2_{SI} UnitLength^{-3}_{SI}
 $$
 .)
 
