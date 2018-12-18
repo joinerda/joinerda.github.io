@@ -377,8 +377,9 @@ Open the Input settings, and add another 2 Axes. Name the first Joystick X and t
 Open up the CameraRig script, and add in a check on the Joystick X and Joystick Y axes. Set this under an else clause for the mouse button check, so that either joystick or mouse is used but not both.
 
 ```
-#define ROLL_ENABLED
-#define JOYSTICKLOOK_ENABLED
+#define ROLL_ENABLED // create a Roll axis in input or comment this out
+#define JOYSTICKLOOK_ENABLED // create Joystick X and Joystick Y axes in input
+                             // or comment this out
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
