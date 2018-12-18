@@ -444,6 +444,8 @@ And there you have it, a fly-through-walls camera rig that will allow you to loo
 
 [Click here for the final Unity project](/files/blog_2018_12_19/CameraRigPost.zip)
 
+[Comments on Twitter](https://twitter.com/dajoiner/status/1075148339807694855)
+
 PS An alternate version of the script that uses a configuration variable, set by checking for axis existence, rather than an ifdef, is available below.
 
 ```
