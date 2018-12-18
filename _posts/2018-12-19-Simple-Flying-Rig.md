@@ -368,6 +368,77 @@ public class CameraRig : MonoBehaviour {
 }
 ```
 
+If you want to add in controller support, one straight forward way would be to map Mouse X and Mouse Y to Joystick 2 on a standard 2 joystick controller, however this would conflict with the "right click to change mouse view" feature we added. Adding in joystick specific features requires modification of the Input settings, which might require adjustments in future projects using this camera rig. It's likely ideal to use the second approach, but we'll use a #define again so that there isn't a critical error when implementing in a new project.
+
+Open the Input settings, and add another 2 Axes. Name the first Joystick X and the second Joystick Y. You can use the second Horizontal and Vertical entries as models for Gravity, Dead, and Sensitivity settings. Set the Type to Joystick Axis. Set the Axis to 4th and 5th axis respectively. (this is a setting that varies by controller type, if not using an XBox One controller, try to look up a mapping online, or experiment if the axes don't seem to be set correctly.)
+
+![controller configuration](/images/blog_2018_12_19/figure24.png)
+
+Open up the CameraRig script, and add in a check on the Joystick X and Joystick Y axes. Set this under an else clause for the mouse button check, so that either joystick or mouse is used but not both.
+
+```
+#define ROLL_ENABLED
+#define JOYSTICKLOOK_ENABLED
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class CameraRig : MonoBehaviour {
+
+	CharacterController cc = null;
+	float speed = 20.0f;
+	float lookspeed =80.0f;
+	float rollspeed =40.0f;
+
+	// Use this for initialization
+	void Start () {
+		cc = GetComponent<CharacterController> ();
+	}
+	
+	// Update is called once per frame
+	void Update () {
+		float forward = Input.GetAxis ("Vertical");
+		float strafe = Input.GetAxis ("Horizontal");
+		float jump = Input.GetAxis ("Jump");
+		float lookside = Input.GetAxis ("Mouse X");
+		float lookup = -Input.GetAxis ("Mouse Y");
+		float roll = -Input.GetAxis ("Roll");
+
+		cc.Move (
+			speed * Time.deltaTime * (
+				forward * transform.forward
+				+
+				strafe * transform.right
+				+
+				jump * transform.up
+			)
+		);
+
+		if (Input.GetMouseButton (1)) {
+			Vector3 rotAxis = (lookside * transform.up + lookup * transform.right);
+			float rotValue = rotAxis.magnitude;
+			transform.Rotate (rotAxis.normalized, rotValue * lookspeed * Time.deltaTime, Space.World);
+		} else {
+			#if JOYSTICKLOOK_ENABLED
+			lookside = Input.GetAxis("Joystick X");
+			lookup = Input.GetAxis("Joystick Y");
+			Vector3 rotAxis = (lookside * transform.up + lookup * transform.right);
+			float rotValue = rotAxis.magnitude;
+			transform.Rotate (rotAxis.normalized, rotValue * lookspeed * Time.deltaTime, Space.World);
+			#endif
+		}
+		#if ROLL_ENABLED
+		transform.Rotate (transform.forward, rollspeed * roll * Time.deltaTime, Space.World);
+		#endif
+	}
+}
+```
+
+Finally, go back into the Input settings, and under the Roll options, lets add roll functionality to the left and right bumper buttons on the controller. This will complete our controller mapping, so that "X" and "Y" move us up and down, left and right bumpers roll, left joystick moves and strafes, and right joystick changes direction.
+
+![controller configuration](/images/blog_2018_12_19/figure25.png)
+
+
 And there you have it, a fly-through-walls camera rig that will allow you to look at your visualizations from any perspective.
 
 [Click here for the final Unity project](/files/blog_2018_12_19/CameraRigPost.zip)
