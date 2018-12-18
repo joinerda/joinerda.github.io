@@ -1,1 +1,195 @@
+---
+layout: post
+title: Simple Flying Rig
+use_math: true
+draft: true
+---
+
+As you want to view the visualizations you create, you will want to be able to change perspective and move through your scenes in game.
+
+The tool that you use to do this is referred to as a camera rig. Basically, the name says what it is--you rig the camera up to a player object, and when the player moves the camera moves.
+
+Unity comes with a number of built in camera rigs that are greate for video games, but may not  be what you want for modeling and visualization. For many visualization issues, what you really want is a simple flying rig, no gravity, no collisions, and complete control of direction and roll so that you can view your scene from any position and any perspective.
+
+This will vary somewhat depending on your platform. A "flying" rig might make perfect sense on a PC, but lead to motion sickness in VR. WASD/mouse and gamepad commands may feel natural on a computer, but not in a mobile environment. Your camera rig is one element you will likely want to customize and have multiple versions of if you are looking to develop for multiple platforms.
+
+This post, for simplicity, will focus on a standard PC/Mac environment, though we will add in gamepad through the Unity input manager with little additional effort.
+
+We'll return to camera rigs best for VR and mobile later.
+
+Building a camera rig will depend on a few different features of Unity. First, we need to be able to attach many game objects in the scene to a single parent. In this case, we will attach a camera to a empty game object, and we can add an optional avatar that could be viewed in multiplayer, or to ease scene building. Second, we will rely on the CharacterController component to simplify some of our motions. Third, we will make use of the Input class, using it to access keyboard, mouse, and controller events.
+
+Open Unity and create a new 3D game. Add in some basic scene elements so that we will have something to look at. I would recommend a plane and some cubes, but its your scene, make it what you want. My scene will be a plane centered at 0,0,0 with a scale of 10,10,10, and 4 cubes. The default material is a little brighter than I want, so I'll add a material, and set its color to something a little darker, and apply it to my cubes to have them stand out from the plane and from the sky.
+
+[INSERT FIGURE 1 HERE]
+
+Let's learn how to group together objects in the scene under a single parent object. Create an empty game object in your hierarchy, and name it "scenery." Highlight and drag your objects in the scene to the new empty object. If this works, all of the objects can be grouped together under a single parent. Try highlighting the parent and moving and/or scaling it either in the scene view or in the Inspector window. Notice that all of the children move, rotate, and scale with the parent element. You can reset the scene in the inspector by setting the parent object transform back to 0,0,0/0,0,0/1,1,1.
+
+[INSERT FIGURES 2-4 HERE]
+
+You can also use the triangle next to your parent object name in the hierachy to minimize the object, and thus hide the details of a large object in the hiearchy view.
+
+Let's make our camera rig. Create a new empty game object, and name it CameraRig. Drag the Main Camera into the CameraRig object. double check that the transform of both are set to 0,0,0/0,0,0/1,1,1. Move the camera rig in the scene such that you have an interesting starting view.
+
+[INSERT FIGURE 5 HERE]
+
+Let's add one more thing to our camera rig. Let's add a capsule so that it is easier to see the rig in the scene. Add a capsule to the scene and make it a child of the CameraRig. Check that the relative transform of the capsule is 0,0,0/0,0,0/1,1,1. Notice that the camera is at the midpoint of the capsule. Let's move the camera up slightly. Set the y position of the camera to 0.5, this will have the effect of making the camera the "eyes" of the capsule. (We could really use just about anything for our avatar, but capsules are typical for first person avatars, and sticking with that may make our rig easier to modify for other purposes later.)
+
+[INSERT FIGURE 6 HERE]
+
+If you haven't done so, save your scene. Keep doing so.
+
+A little more housekeeping on our avatar--the default capsule comes with a collider attached, which is great for games (so you don't fall through the floor or walk through walls), but for modeling and visualization you likely want to be able to go everywhere and look through anything. Let's disable (but not remove) the capsule collider. Disabling a commponent is a good way to test how something would behave without a component in a way that is easy to undo. 
+
+[INSERT FIGURE 7 HERE]
+
+To the CameraRig object, let's add a CharacterController and an empty CameraRig script.
+
+[INSERT FIGURES 8-11 HERE]
+
+Go ahead and drag the camera rig from the Hiearchy to the Project panel to make a prefab. This will make it easier to add to other scenes or expoert to other projects.
+
+Open up the CameraRig script. Let's create a member variable to hold a reference to the CharacterController, and set it up in Start. Remeber the use of GetComponent, which is a templated method to get different components attached to a given GameObject.
+
+```
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class CameraRig : MonoBehaviour {
+
+	CharacterController cc = null;
+
+	// Use this for initialization
+	void Start () {
+		cc = GetComponent<CharacterController> ();
+	}
+	
+	// Update is called once per frame
+	void Update () {
+		
+	}
+}
+```
+
+In Update, lets make a simple modification and test it. The Input system typically allows you to access "Axes," "Buttons," and "Keys." Any sort fo input can be mapped to a button or an axis, the difference is that buttons have events when they are pressed down, when they are held, and when they are released, and axes have events that return a vlue that can be positive or negative and potentially could be real valued (e.g. -0.2 or +0.5 instead of just 1 or 0.) Keys are keys--its keyboard codes. I typically avoid them as its easier to keep things multi-platform and multi-controller to work through buttons and axes mapped in the Input system. I'll also add a single float that can be used to adjust movement speed.
+
+```
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class CameraRig : MonoBehaviour {
+
+	CharacterController cc = null;
+	float speed = 1.0f;
+
+	// Use this for initialization
+	void Start () {
+		cc = GetComponent<CharacterController> ();
+	}
+	
+	// Update is called once per frame
+	void Update () {
+		float forward = Input.GetAxis ("Vertical");
+
+		cc.Move (speed * forward * transform.forward * Time.deltaTime);
+	}
+}
+```
+
+Note the use of GetAxis here, which gets input from the "Vertical" axis, and stores it in a float called forward. In the Unity editor, go to te Input panel in Project Settings. Notice this opens up in the inspector, and is initially minimized. Maximize the Axes to see each axis of input.
+
+[INSERT FIGURES 12-14 HERE]
+
+There are two different entries for the Vertical axes. Expand the first. We see that the up and down arrows are mapped to forward. Additionally, there is an alternate mapping of s and w (e.g. WASD controls). There is a gravity feature, which controls how quickly the axis relaxes to zero after it is no longer activated, a "dead" zone where axis values less than a given value are ignored (this is useful for joysticks which may not have a perfect zero calibration), and a sensistivity, which allows you to individually adjust how each control affects the result of a GetAxis call.
+
+Open up the second entry for Vertical. Notice this maps to the Joystick Y axis. It has no gravity, as the joystick will automatically return to center, but has a much larger dead zone and a lower sensitivity. If you have a controller (must typical 2 joystick gamepads will work here, the XBox One controller has specific Unity mappings you can find online) [PUT A LINK HERE TO A JOYSTICK MAPPING] you can plug it in and test with it.
+
+Press play and test the up and down arrows, the w and s keys, and if you have it plugged in a controller, and notice the ability to move forwards and backwards. Increase the speed variable as needed to your comfort.
+
+The "cc.Move" command takes a Vector3 input of a displacement in the scene. transform.forward is the forward direction that our controller is facing, and has a magnitude of 1. We scale it by our absolute speed, the value of Input.GetAxis("Vertical"), and Time.deltaTime. Time.deltaTime is the time elapsed since the last frame. If we don't scale our movements by this, our motion will get jumpy when framerate lags or spikes.
+
+Let's add in a similar check on the "Horizontal" axis.
+
+```
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class CameraRig : MonoBehaviour {
+
+	CharacterController cc = null;
+	float speed = 20.0f;
+
+	// Use this for initialization
+	void Start () {
+		cc = GetComponent<CharacterController> ();
+	}
+	
+	// Update is called once per frame
+	void Update () {
+		float forward = Input.GetAxis ("Vertical");
+		float strafe = Input.GetAxis ("Horizontal");
+
+		cc.Move (
+			speed * Time.deltaTime * (
+				forward * transform.forward
+				+
+				strafe * transform.right
+			)
+		);
+	}
+}
+```
+
+We also need an up/down. There is a "Jump" axis in input, but it typically doesn't have a default negative value (you jump up and gravity brings you down.) We want to modify this. Open the Input settings, and open the Jump axis (the first entry). Currenty we "jump" on space. Let's add in a "crouch" on c. This is a little tricky messing with the Input settings, as we will need to make the same changes in other projects that use this camera rig. You can make a similar mapping for the controller settings, I typically map to either "joystick button 2" (this will conflict with "Fire3" but will be more intuitive on a standard controller) or "joystick button 4" (less intuitive but doesn't conflict with default Input settings.)
+
+[INSERT FIGURE 15 HERE]
+
+Maybe save your scene and project right about now... You know, if you haven't done it recently.
+
+Let's add in the jump/crouch axis.
+
+```
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class CameraRig : MonoBehaviour {
+
+	CharacterController cc = null;
+	float speed = 20.0f;
+
+	// Use this for initialization
+	void Start () {
+		cc = GetComponent<CharacterController> ();
+	}
+	
+	// Update is called once per frame
+	void Update () {
+		float forward = Input.GetAxis ("Vertical");
+		float strafe = Input.GetAxis ("Horizontal");
+		float jump = Input.GetAxis ("Jump");
+
+		cc.Move (
+			speed * Time.deltaTime * (
+				forward * transform.forward
+				+
+				strafe * transform.right
+				+
+				jump * transform.up
+			)
+		);
+	}
+}
+```
+
+
+
+
+
+
+
+
 
