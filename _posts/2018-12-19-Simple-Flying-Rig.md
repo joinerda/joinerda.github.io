@@ -2,7 +2,7 @@
 layout: post
 title: Simple Flying Rig
 use_math: false
-draft: true
+draft: false
 ---
 
 As you want to view the visualizations you create, you will want to be able to change perspective and move through your scenes in game.
