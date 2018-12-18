@@ -21,31 +21,38 @@ Building a camera rig will depend on a few different features of Unity. First, w
 
 Open Unity and create a new 3D game. Add in some basic scene elements so that we will have something to look at. I would recommend a plane and some cubes, but its your scene, make it what you want. My scene will be a plane centered at 0,0,0 with a scale of 10,10,10, and 4 cubes. The default material is a little brighter than I want, so I'll add a material, and set its color to something a little darker, and apply it to my cubes to have them stand out from the plane and from the sky.
 
-[INSERT FIGURE 1 HERE]
+![initial scene](/images/blog_2018_12_18/figure1.png)
+
 
 Let's learn how to group together objects in the scene under a single parent object. Create an empty game object in your hierarchy, and name it "scenery." Highlight and drag your objects in the scene to the new empty object. If this works, all of the objects can be grouped together under a single parent. Try highlighting the parent and moving and/or scaling it either in the scene view or in the Inspector window. Notice that all of the children move, rotate, and scale with the parent element. You can reset the scene in the inspector by setting the parent object transform back to 0,0,0/0,0,0/1,1,1.
 
-[INSERT FIGURES 2-4 HERE]
+![creating parent object](/images/blog_2018_12_18/figure2.png)
+![creating parent object](/images/blog_2018_12_18/figure3.png)
+![creating parent object](/images/blog_2018_12_18/figure4.png)
 
 You can also use the triangle next to your parent object name in the hierarchy to minimize the object, and thus hide the details of a large object in the hierarchy view.
 
 Let's make our camera rig. Create a new empty game object, and name it CameraRig. Drag the Main Camera into the CameraRig object. double check that the transform of both are set to 0,0,0/0,0,0/1,1,1. Move the camera rig in the scene such that you have an interesting starting view.
 
-[INSERT FIGURE 5 HERE]
+![set camera rig in scene](/images/blog_2018_12_18/figure5.png)
 
 Let's add one more thing to our camera rig. Let's add a capsule so that it is easier to see the rig in the scene. Add a capsule to the scene and make it a child of the CameraRig. Check that the relative transform of the capsule is 0,0,0/0,0,0/1,1,1. Notice that the camera is at the midpoint of the capsule. Let's move the camera up slightly. Set the y position of the camera to 0.5, this will have the effect of making the camera the "eyes" of the capsule. (We could really use just about anything for our avatar, but capsules are typical for first person avatars, and sticking with that may make our rig easier to modify for other purposes later.)
 
-[INSERT FIGURE 6 HERE]
+![set avatar and camera position](/images/blog_2018_12_18/figure6.png)
 
 If you haven't done so, save your scene. Keep doing so.
 
 A little more housekeeping on our avatar--the default capsule comes with a collider attached, which is great for games (so you don't fall through the floor or walk through walls), but for modeling and visualization you likely want to be able to go everywhere and look through anything. Let's disable (but not remove) the capsule collider. Disabling a component is a good way to test how something would behave without a component in a way that is easy to undo. 
 
-[INSERT FIGURE 7 HERE]
+![disable capsule collider](/images/blog_2018_12_18/figure7.png)
 
 To the CameraRig object, let's add a CharacterController and an empty CameraRig script.
 
-[INSERT FIGURES 8-11 HERE]
+![configure camerarig](/images/blog_2018_12_18/figure8.png)
+![configure camerarig](/images/blog_2018_12_18/figure9.png)
+![configure camerarig](/images/blog_2018_12_18/figure10.png)
+![configure camerarig](/images/blog_2018_12_18/figure11.png)
+
 
 Go ahead and drag the camera rig from the Hierarchy to the Project panel to make a prefab. This will make it easier to add to other scenes or export to other projects.
 
@@ -100,7 +107,9 @@ public class CameraRig : MonoBehaviour {
 
 Note the use of GetAxis here, which gets input from the "Vertical" axis, and stores it in a float called forward. In the Unity editor, go to the Input panel in Project Settings. Notice this opens up in the inspector, and is initially minimized. Maximize the Axes to see each axis of input.
 
-[INSERT FIGURES 12-14 HERE]
+![view vertical axis settings](/images/blog_2018_12_18/figure12.png)
+![view vertical axis settings](/images/blog_2018_12_18/figure13.png)
+![view vertical axis settings](/images/blog_2018_12_18/figure14.png)
 
 There are two different entries for the Vertical axes. Expand the first. We see that the up and down arrows are mapped to forward. Additionally, there is an alternate mapping of s and w (e.g. WASD controls). There is a gravity feature, which controls how quickly the axis relaxes to zero after it is no longer activated, a "dead" zone where axis values less than a given value are ignored (this is useful for joysticks which may not have a perfect zero calibration), and a sensitivity, which allows you to individually adjust how each control affects the result of a GetAxis call.
 
@@ -145,7 +154,7 @@ public class CameraRig : MonoBehaviour {
 
 We also need an up/down. There is a "Jump" axis in input, but it typically doesn't have a default negative value (you jump up and gravity brings you down.) We want to modify this. Open the Input settings, and open the Jump axis (the first entry). Currently we "jump" on space. Let's add in a "crouch" on c. This is a little tricky messing with the Input settings, as we will need to make the same changes in other projects that use this camera rig. You can make a similar mapping for the controller settings, I typically map to either "joystick button 2" (this will conflict with "Fire3" but will be more intuitive on a standard controller) or "joystick button 4" (less intuitive but doesn't conflict with default Input settings.)
 
-[INSERT FIGURE 15 HERE]
+![jump/crouch configuration](/images/blog_2018_12_18/figure15.png)
 
 Maybe save your scene and project right about now... You know, if you haven't done it recently.
 
@@ -191,11 +200,15 @@ Unity groups scene objects in different layers for the purposes of applying diff
 
 Select your camera rig object in the hierarchy, and go to the pull down menu for layer in the Inspector. Select add layer. Add a new user layer called CameraRig. Go back to viewing the camera rig in the inspector. Use the pulldown menu to set the layer to camera rig.
 
-[INSERT FIGURES 16-19 HERE]
+![layer configuration](/images/blog_2018_12_18/figure16.png)
+![layer configuration](/images/blog_2018_12_18/figure17.png)
+![layer configuration](/images/blog_2018_12_18/figure18.png)
+![layer configuration](/images/blog_2018_12_18/figure19.png)
 
 Now we need to edit the Physics project settings. In the layer collision matrix uncheck the interaction between the CameraRig layer and the default layer.
 
-[INSERT FIGURES 20-21 HERE]
+![layer configuration](/images/blog_2018_12_18/figure20.png)
+![layer configuration](/images/blog_2018_12_18/figure21.png)
 
 Play the scene and now you can move through the floor. (As an aside, if you've never noticed the default for Unity meshes is that they are one-sided... this can be changed with some shader magic, but when you use standard objects you only see them from the outside in, and from the front side not the back.)
 
@@ -252,7 +265,8 @@ You may find that occasionally you get off your center axis. There are a few fix
 
 If you don't like the behavior you get from using Space.Self instead of Space.World, and want to try adding a roll feature, you can do the following. In the Input Settings, create a new space by making the number of items in the Axes one bigger. Using the last space added, change the name to "Roll." Add in the q and e keys as positive and negative values, and clear out any old information in the other fields.
 
-[INSERT FIGURE 22-23 HERE]
+![roll configuration](/images/blog_2018_12_18/figure22.png)
+![roll configuration](/images/blog_2018_12_18/figure23.png)
 
 In the CameraRig script, check the roll axis and use it to rotate about transform.forward.
 
