@@ -444,6 +444,78 @@ And there you have it, a fly-through-walls camera rig that will allow you to loo
 
 [Click here for the final Unity project](/files/blog_2018_12_19/CameraRigPost.zip)
 
+PS An alternate version of the script that uses a configuration variable, set by checking for axis existence, rather than an ifdef, is available below.
+
+```
+
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class CameraRig : MonoBehaviour {
+
+	CharacterController cc = null;
+	float speed = 20.0f;
+	float lookspeed =80.0f;
+	float rollspeed =40.0f;
+	bool useRoll = true;
+	bool useJoystick = true;
+
+	bool isAxisEnabled(string axisName) {
+		try {
+			Input.GetAxis(axisName);
+			return true;
+		}catch(UnityException e) {
+			Debug.Log ("CameraRig.cs requires Roll axis to be set up in Input Manager to incorporate Roll feature.");
+			Debug.Log ("CameraRig.cs requires Joystick X and Joystick Y axes to be set up in Input Manager to incorporate controller-based look.");
+			return false;
+		}
+	}
+
+	// Use this for initialization
+	void Start () {
+		cc = GetComponent<CharacterController> ();
+		useRoll = isAxisEnabled ("Roll");
+		useJoystick = isAxisEnabled ("Joystick X") && isAxisEnabled ("Joystick Y");
+	}
+	
+	// Update is called once per frame
+	void Update () {
+		float forward = Input.GetAxis ("Vertical");
+		float strafe = Input.GetAxis ("Horizontal");
+		float jump = Input.GetAxis ("Jump");
+		float lookside = Input.GetAxis ("Mouse X");
+		float lookup = -Input.GetAxis ("Mouse Y");
+
+		cc.Move (
+			speed * Time.deltaTime * (
+				forward * transform.forward
+				+
+				strafe * transform.right
+				+
+				jump * transform.up
+			)
+		);
+
+		if (Input.GetMouseButton (1)) {
+			Vector3 rotAxis = (lookside * transform.up + lookup * transform.right);
+			float rotValue = rotAxis.magnitude;
+			transform.Rotate (rotAxis.normalized, rotValue * lookspeed * Time.deltaTime, Space.World);
+		} else if(useJoystick) {
+			lookside = Input.GetAxis("Joystick X");
+			lookup = Input.GetAxis("Joystick Y");
+			Vector3 rotAxis = (lookside * transform.up + lookup * transform.right);
+			float rotValue = rotAxis.magnitude;
+			transform.Rotate (rotAxis.normalized, rotValue * lookspeed * Time.deltaTime, Space.World);
+		}
+		if (useRoll) {
+			float roll = -Input.GetAxis ("Roll");
+			transform.Rotate (transform.forward, rollspeed * roll * Time.deltaTime, Space.World);
+		}
+	}
+}
+```
+
 
 
 
