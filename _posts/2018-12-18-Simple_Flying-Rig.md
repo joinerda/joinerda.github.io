@@ -370,9 +370,9 @@ public class CameraRig : MonoBehaviour {
 
 And there you have it, a fly-through-walls camera rig that will allow you to look at your visualizations from any perspective.
 
-You can get the completed project here.
+[Click here for the final Unity project](/files/blog_2018_12_18/CameraRigPost.zip)
 
-Comment on twitter.
+
 
 
 
