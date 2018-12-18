@@ -185,6 +185,181 @@ public class CameraRig : MonoBehaviour {
 }
 ```
 
+Playing this, then flying up and down, notice that merely turning off the capsule collider on our avatar doesn't stop collisions. As it turns out, the CharacterController component has a built in collider that doesn't show up in the inspector. If we want to configure our flying camera rig to go through floors and walls and objects, we need to disable collision a little differently.
+
+Unity groups scene objects in different layers for the purposes of applying different effects and physics. We are going to create a custom layer for our camera rig, so that we can disable interaction between the default layer and our camera rig layer.
+
+Select your camera rig object in the hierarchy, and go to the pull down menu for layer in the Inspector. Select add layer. Add a new user layer called CameraRig. Go back to viewing the camera rig in the instpector. Use the pulldown menu to set the layer to camera rig.
+
+[INSERT FIGURES 16-19 HERE]
+
+Now we need to edit the Physics project settings. In the layer collision matrix ucheck the interaction between the CameraRig layer and the default layer.
+
+[INSERT FIGURES 20-21 HERE]
+
+Play the scene and now you can move through the floor. (As an aside, if you've never noticed the default for Unity meshes is that they are one-sided... this can be changed with some shader magic, but when you use standard objects you only see them from the outside in, and from the front side not the back.)
+
+Finally, lets add mouse movement into the mix so that we can look around in the scene. Open the CameraRig script. Add in calls to access Input.GetAxis("Mouse X") and "Mouse Y", and use those with the Rotate command to rotate your transform.
+
+```
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class CameraRig : MonoBehaviour {
+
+	CharacterController cc = null;
+	float speed = 20.0f;
+	float lookspeed =80.0f;
+
+	// Use this for initialization
+	void Start () {
+		cc = GetComponent<CharacterController> ();
+	}
+	
+	// Update is called once per frame
+	void Update () {
+		float forward = Input.GetAxis ("Vertical");
+		float strafe = Input.GetAxis ("Horizontal");
+		float jump = Input.GetAxis ("Jump");
+		float lookside = Input.GetAxis ("Mouse X");
+		float lookup = -Input.GetAxis ("Mouse Y");
+
+		cc.Move (
+			speed * Time.deltaTime * (
+				forward * transform.forward
+				+
+				strafe * transform.right
+				+
+				jump * transform.up
+			)
+		);
+
+		if (Input.GetMouseButton (1)) {
+			Vector3 rotAxis = (lookside * transform.up + lookup * transform.right);
+			float rotValue = rotAxis.magnitude;
+			transform.Rotate (rotAxis.normalized, rotValue * lookspeed * Time.deltaTime, Space.World);
+		}
+	}
+}
+```
+
+Notice that we've added another speed variable to make it easy for you to set the sensitivity to your preference. The variables lookside and lookup are used to get the mouse motion, and the y motion is inverted here. If you don't like this, don't use the minus sign. We put the actual rotate command in an if block, so that you only look around if the right mouse button (button 0 is the left, and button 2 is the middle) is pressed. You can change this, of course, but particularly when working in the editor you may find that having mouse motion always on is distracting. The rotate command has a few different versions, but here we are rotating about a given axis, by a given angle. For the axis, we are combining up and right, with values equal to the mouse X and mouse Y changes. We're combining those two changes in quadrature (value of the total change around the comined axis) to get the angular change. We are scaling the actual change by our lookspeed and the framerate.
+
+Implement these changes and play your code. You should now be able to fly through your scene with WASD or arrow keys, and change your viewpoint with the mouse.
+
+You may find that occasionally you get off your center axis. There are a few fixes, each of which introduces somethign yo may not want. First, you could change your rotation so that you use Space.Self instead of Space.World. This rotation behaves contrary to expected behaiour when you move the mouse while looking up or down. You could rigidly lock your orientation to always be directly forward, which prevents you from looking up or down. You could add in a roll feature, which will give you more natural movement, but will involve changing the Input settings in a way that you will have to implement for every other project in which you import your camera rig.
+
+If you don't like the behaviour you get from using Space.Self instead of Space.World, and want to try adding a roll feature, you can do the following. In the Input Settings, create a new space by making the number of items in the Axes one bigger. Using the last space added, change the name to "Roll." Add in the q and e keys as positive and negative values, and clear out any old information in the other fields.
+
+[INSERT FIGURE 22-23 HERE]
+
+In the CameraRig script, check the roll axis and use it to rotate about transform.forward.
+
+```
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class CameraRig : MonoBehaviour {
+
+	CharacterController cc = null;
+	float speed = 20.0f;
+	float lookspeed =80.0f;
+	float rollspeed =40.0f;
+
+	// Use this for initialization
+	void Start () {
+		cc = GetComponent<CharacterController> ();
+	}
+	
+	// Update is called once per frame
+	void Update () {
+		float forward = Input.GetAxis ("Vertical");
+		float strafe = Input.GetAxis ("Horizontal");
+		float jump = Input.GetAxis ("Jump");
+		float lookside = Input.GetAxis ("Mouse X");
+		float lookup = -Input.GetAxis ("Mouse Y");
+		float roll = Input.GetAxis ("Roll");
+
+		cc.Move (
+			speed * Time.deltaTime * (
+				forward * transform.forward
+				+
+				strafe * transform.right
+				+
+				jump * transform.up
+			)
+		);
+
+		if (Input.GetMouseButton (1)) {
+			Vector3 rotAxis = (lookside * transform.up + lookup * transform.right);
+			float rotValue = rotAxis.magnitude;
+			transform.Rotate (rotAxis.normalized, rotValue * lookspeed * Time.deltaTime, Space.World);
+		}
+
+		transform.Rotate (transform.forward, rollspeed * roll * Time.deltaTime, Space.World);
+	}
+}
+```
+
+Since this introduces a change that could potentially cause errors when introducing this script in a new project, you might want to use a preprocessor directive to make it easy to #if #endif this behaviour out of your script easily. #define statements in C# must come at the beginning of your script before the using statements.
+
+```
+#define ROLL_ENABLED
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class CameraRig : MonoBehaviour {
+
+	CharacterController cc = null;
+	float speed = 20.0f;
+	float lookspeed =80.0f;
+	float rollspeed =40.0f;
+
+	// Use this for initialization
+	void Start () {
+		cc = GetComponent<CharacterController> ();
+	}
+	
+	// Update is called once per frame
+	void Update () {
+		float forward = Input.GetAxis ("Vertical");
+		float strafe = Input.GetAxis ("Horizontal");
+		float jump = Input.GetAxis ("Jump");
+		float lookside = Input.GetAxis ("Mouse X");
+		float lookup = -Input.GetAxis ("Mouse Y");
+		float roll = Input.GetAxis ("Roll");
+
+		cc.Move (
+			speed * Time.deltaTime * (
+				forward * transform.forward
+				+
+				strafe * transform.right
+				+
+				jump * transform.up
+			)
+		);
+
+		if (Input.GetMouseButton (1)) {
+			Vector3 rotAxis = (lookside * transform.up + lookup * transform.right);
+			float rotValue = rotAxis.magnitude;
+			transform.Rotate (rotAxis.normalized, rotValue * lookspeed * Time.deltaTime, Space.World);
+		}
+		#if ROLL_ENABLED
+		transform.Rotate (transform.forward, rollspeed * roll * Time.deltaTime, Space.World);
+		#endif
+	}
+}
+```
+
+And there you have it, a fly-through-walls camera rig that will allow you to look at your visualizations from any perspective.
+
+You can get the completed project here.
+
+Comment on twitter.
+
 
 
 
