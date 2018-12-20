@@ -62,3 +62,11 @@ We can make a quiver plot by using 3 size variables instead of 1, and a arrow fo
 
 
 Using each of the UVT visualization types follows this basic process, and we will cover some of the other visualization types in future posts.
+
+
+
+[Click here for the final Unity project](/files/blog_2018_12_20/UVTIntro.zip)
+
+[Comments on Twitter](https://twitter.com/dajoiner/status/)
+
+
