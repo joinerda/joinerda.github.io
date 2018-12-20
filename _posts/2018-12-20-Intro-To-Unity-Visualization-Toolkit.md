@@ -16,11 +16,11 @@ Let's download the [UVT sample project](https://github.com/joinerda/unity-visual
 ![getting UVT from github site](/images/blog_2018_12_20/figure1.png)
 ![getting UVT from github site](/images/blog_2018_12_20/figure2.png)
 
-If you want to see some of the visualization types currently supported by the UVT, open the UVT folder in Assets, and open the Scenes folder. Select the Examples scene and press play. You should see a variety of different ojects in the scene of different visualization type.
+If you want to see some of the visualization types currently supported by the UVT, open the UVT folder in Assets, and open the Scenes folder. Select the Examples scene and press play. You should see a variety of different objects in the scene of different visualization type.
 
 Also notice in Assets there is a folder "BasicPlayer" which includes a flying camera rig similar to the one we created in the simple flying rig post.
 
-Go to the file menu, and start a new scene. Disable the Main Camera. From Assets/BasicPlayer, drag a BasicPlayer prefab into the scene. BasicPlayer is equipped with a "pointing rod" for reference, but this can be distracting, so feel free to open up the BasicPlayer object in your heirarchy, find the cylinder used for the pointing rod, and disable it.
+Go to the file menu, and start a new scene. Disable the Main Camera. From Assets/BasicPlayer, drag a BasicPlayer prefab into the scene. BasicPlayer is equipped with a "pointing rod" for reference, but this can be distracting, so feel free to open up the BasicPlayer object in your hierarchy, find the cylinder used for the pointing rod, and disable it.
 
 Now lets add some data. We need to have some data to visualize, and place it where Unity knows to look for it.
 
@@ -44,11 +44,11 @@ Name this file something you can remember (I'm naming it SimpleData.csv) and cop
 
 We need an object in our scene to represent our data. In the UVT folder in Assets, there is a folder AbstractObjects. Notice this has a prefab for a DataObect and a VisObject. Drag a DataObject into the scene. Set the filename for your DataObject to the name of your data file. The default type is UNSTRUCTURED_CSV, and you can leave it as that. 
 
-Now we need a visual. Drag a VisObject into the scene, and set its DataObject to the DataObject in our scene. Our data file has columns x y z a b c and d. Under the VisOjbect settings, notice we can change the independent variables. Each of these variables (independent, depedendent, color, etc.) should match up with one of our column names. The default is x,y,and z, which we can leave as they are.
+Now we need a visual. Drag a VisObject into the scene, and set its DataObject to the DataObject in our scene. Our data file has columns x y z a b c and d. Under the VisOjbect settings, notice we can change the independent variables. Each of these variables (independent, dependent, color, etc.) should match up with one of our column names. The default is x,y,and z, which we can leave as they are.
 
-Let's set the color variable to be "a". This column of data ranges from 7.41 to 57.4 in the file, so we can use that to set our color scale. I'll set my color scale to have 3 levels, 0, 25, and 50, and leave the correspongin colors alone (red, green, blue).
+Let's set the color variable to be "a". This column of data ranges from 7.41 to 57.4 in the file, so we can use that to set our color scale. I'll set my color scale to have 3 levels, 0, 25, and 50, and leave the corresponding colors alone (red, green, blue).
 
-For the size variable names, I'll reset the number of size variabes (0 for constant size, 1 for 1D glyphs, and 3 for 3D glyphs) to 1, and use a size variable of b. Playing this, some of my glyphs are a little big relative to the scene, so I'll adjust the glyph scale to 0.25,0.25,0.25. (Remember any changes you make to your scene while the scene is playing will be undone once you stop playing the scene.)
+For the size variable names, I'll reset the number of size variables (0 for constant size, 1 for 1D glyphs, and 3 for 3D glyphs) to 1, and use a size variable of b. Playing this, some of my glyphs are a little big relative to the scene, so I'll adjust the glyph scale to 0.25,0.25,0.25. (Remember any changes you make to your scene while the scene is playing will be undone once you stop playing the scene.)
 
 In the hierarchy panel, I can also enable an axis, currently a child element of the VisObject.
 
