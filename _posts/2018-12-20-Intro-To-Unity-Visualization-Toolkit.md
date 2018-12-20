@@ -2,7 +2,7 @@
 layout: post
 title: Unity Visualization Toolkit Introduction
 use_math: false
-draft: true
+draft: false
 ---
 
 The Unity Visualization Toolkit is a collection of tools for performing 3D visualization in a Unity scene.
