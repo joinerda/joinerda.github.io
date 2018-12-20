@@ -13,7 +13,8 @@ For this first introduction, we will start with loading a CSV (comma separated v
 
 Let's download the [UVT sample project](https://github.com/joinerda/unity-visualization-toolkit), which includes the UVT library. Uncompress it and move the UnityVisualizationToolkit folder somewhere easily accessible (Desktop, Documents, etc.) Open up Unity and open the UnityVisualizationToolkit project.
 
-[INSERT FIGURES 1 and 2 HERE]
+![getting UVT from github site](/images/blog_2018_12_20/figure1.png)
+![getting UVT from github site](/images/blog_2018_12_20/figure2.png)
 
 If you want to see some of the visualization types currently supported by the UVT, open the UVT folder in Assets, and open the Scenes folder. Select the Examples scene and press play. You should see a variety of different ojects in the scene of different visualization type.
 
@@ -53,11 +54,11 @@ In the hierarchy panel, I can also enable an axis, currently a child element of 
 
 Playing the scene, I've still got my "marker" in my scene for my data object (a translucent cube), and if I want to get rid of that I can either move the data object out of the way, or disable the renderer on the object in the inspector.
 
-[INSERT FIGURE 3 HERE]
+![1D glyphs](/images/blog_2018_12_20/figure3.png)
 
 We can make a quiver plot by using 3 size variables instead of 1, and a arrow for our glyph instead of a sphere. Change the number of size variables to three, and use the columns b, c, and d as the x, y, and z components of your 3D glyph. Play your scene and observe how the glyphs are displayed differently.
 
-[INSERT FIGURE 4 HERE]
+![3D glyphs](/images/blog_2018_12_20/figure4.png)
 
 
 Using each of the UVT visualization types follows this basic process, and we will cover some of the other visualization types in future posts.
