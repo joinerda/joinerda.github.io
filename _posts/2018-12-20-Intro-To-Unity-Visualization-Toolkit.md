@@ -67,6 +67,6 @@ Using each of the UVT visualization types follows this basic process, and we wil
 
 [Click here for the final Unity project](/files/blog_2018_12_20/UVTIntro.zip)
 
-[Comments on Twitter](https://twitter.com/dajoiner/status/)
+[Comments on Twitter](https://twitter.com/dajoiner/status/1075842914926911488)
 
 
