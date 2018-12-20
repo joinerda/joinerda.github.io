@@ -53,3 +53,9 @@ Playing the scene, I've still got my "marker" in my scene for my data object (a 
 
 [INSERT FIGURE 3 HERE]
 
+We can make a quiver plot by using 3 size variables instead of 1, and a arrow for our glyph instead of a sphere. Change the number of size variables to three, and use the columns b, c, and d as the x, y, and z components of your 3D glyph. Play your scene and observe how the glyphs are displayed differently.
+
+[INSERT FIGURE 4 HERE]
+
+
+Using each of the UVT visualization types follows this basic process, and we will cover some of the other visualization types in future posts.
