@@ -49,6 +49,8 @@ Let's set the color variable to be "a". This column of data ranges from 7.41 to 
 
 For the size variable names, I'll reset the number of size variabes (0 for constant size, 1 for 1D glyphs, and 3 for 3D glyphs) to 1, and use a size variable of b. Playing this, some of my glyphs are a little big relative to the scene, so I'll adjust the glyph scale to 0.25,0.25,0.25. (Remember any changes you make to your scene while the scene is playing will be undone once you stop playing the scene.)
 
+In the hierarchy panel, I can also enable an axis, currently a child element of the VisObject.
+
 Playing the scene, I've still got my "marker" in my scene for my data object (a translucent cube), and if I want to get rid of that I can either move the data object out of the way, or disable the renderer on the object in the inspector.
 
 [INSERT FIGURE 3 HERE]
