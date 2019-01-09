@@ -1,8 +1,8 @@
 ---
 layout: post
 title: Game Of Life in 3D
-use_math: true
-draft: true
+use_math: false
+draft: false
 ---
 
 Conway's Game of Life ([see Wikipedia entry](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life)) is a classic problem for computer science students, and provides an early example of cellular automata as well as an opportunity to practice nested loops and multi-dimensional arrays. ([Javascript example from Shodor.org](http://www.shodor.org/interactivate/activities/Life/)) . For larger grids, it can also be an opportunity for students to think about domain decomposition and parallelism. ([HPC version with parallel code](http://www.shodor.org/petascale/materials/UPModules/GameOfLife/)) .
