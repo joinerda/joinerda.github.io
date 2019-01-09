@@ -5,7 +5,7 @@ use_math: true
 draft: true
 ---
 
-Conway's Game of Life https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life s a classic problem for computer science students, and provides an early example of cellular automata as well as an opportunity to practice nested loops and multi-dimensional arrays. http://www.shodor.org/interactivate/activities/Life/ . For larger grids, it can also be an opportunity for students to think about domain decomposition and parallelism. http://www.shodor.org/petascale/materials/UPModules/GameOfLife/ .
+Conway's Game of Life [(see Wikipedia entry)]{https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life) s a classic problem for computer science students, and provides an early example of cellular automata as well as an opportunity to practice nested loops and multi-dimensional arrays. http://www.shodor.org/interactivate/activities/Life/ . For larger grids, it can also be an opportunity for students to think about domain decomposition and parallelism. http://www.shodor.org/petascale/materials/UPModules/GameOfLife/ .
 
 The Game of Life can also be an interesting activity to study in 3 dimensions. https://www.complex-systems.com/abstracts/v16_i04_a07/ . 
 
