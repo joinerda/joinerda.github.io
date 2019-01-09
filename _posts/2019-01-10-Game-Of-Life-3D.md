@@ -390,5 +390,5 @@ What other interesting 3D rules can you find?
 
 [Click here for the final Unity project (note some configuration variables have been made public in this version)](/files/blog_2019_01_10/LifeBlog.zip)
 
-[Comments on Twitter](https://twitter.com/dajoiner/status/1075842914926911488)
+[Comments on Twitter](https://twitter.com/dajoiner/status/1083090925809795072)
 
