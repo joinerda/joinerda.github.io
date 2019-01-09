@@ -205,5 +205,183 @@ Finally, our update will set up each iteration.
 ```
 
 
+When you put it all together it will look like the following
 
+```
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Model : MonoBehaviour {
+
+	int [,,] theGrid; // length each cell has been on (0 for off)
+	int [,,] neighbors; // storage for count of neighbors
+	GameObject [,,] theObjects; // array of objects to show cells on screen
+	int nx=30; // grid size
+	int ny=1;
+	int nz=30;
+	bool useY = false; // should we count in y direction (for 2D comparison)
+	int [] onRule = new int[]{2,3}; // On rule, if on how many neighbors to stay on
+	int [] offRule = new int[]{3}; // Off rule. if off how many neighbors to turn on
+	int onMax = 100; // maximum stored "age" of cell (to avoid overflow)
+	float delay = 0.01f; // preferred delat between frames
+	float time = 0.0f; // time counter for delaying frames
+	public Material theMaterial;
+	public Color youngColor = Color.green;
+	public Color oldColor = Color.blue;
+
+	// Use this for initialization
+	void Start () {
+		// allocate grid space
+		theGrid = new int[nx, ny, nz];
+
+		// allocate neighbor count space
+		neighbors = new int[nx, ny, nz];
+
+		// set initial grid to random
+		Reset ();
+
+		// allocate and place game objects for each cell
+		theObjects = new GameObject[nx, ny, nz];
+		for (int i = 0; i < nx; i++) { // for every cell
+			for (int j = 0; j < ny; j++) {
+				for (int k = 0; k < nz; k++) {
+					// start with a cube
+					theObjects[i,j,k] = GameObject.CreatePrimitive (PrimitiveType.Cube);
+					// parent the cube to the Model object
+					theObjects [i, j, k].transform.parent = transform;
+					// use the largest spacing to set the scale
+					float scale = Mathf.Min (1.0f / nx, Mathf.Min (1.0f / ny, 1.0f / nz));
+					theObjects [i, j, k].transform.localScale = scale * Vector3.one;
+					// place the cells, centering in x and z
+					float xpos = i * scale - 0.5f;
+					float ypos = j * scale;
+					float zpos = k * scale - 0.5f;
+					theObjects [i, j, k].transform.position = new Vector3 (xpos, ypos, zpos);
+					theObjects [i, j, k].GetComponent<Renderer> ().material = theMaterial;
+				}
+			}
+		}
+
+		// turn objects on or off based on initial values
+		SetVisibility ();
+
+	}
+
+	void Count() {
+		for (int i = 0; i < nx; i++) { // for every cell
+			for (int j = 0; j < ny; j++) {
+				for (int k = 0; k < nz; k++) {
+					neighbors [i, j, k] = 0; // start count at zero
+					for (int l = -1; l < 2; l++) { // nearby in x
+						int wi = ((i + l) + nx) % nx; // wrapped neighbor index
+						int start = -1;
+						int stop = 2;
+						if (!useY) { // adjust loop for y if ignoring in count
+							start = 0;
+							stop = 1;
+						}
+						for (int m = start; m < stop; m++) { // nearby in y
+							int wj = ((j + m) + ny) % ny; // wrapped neighbor index
+							for (int n = -1; n < 2; n++) { // nearby in z
+								int wk = ((k + n) + nz) % nz; // wrapped neighbor index
+								if (l != 0 || m != 0 || n != 0) { // don't count self
+									// if nearby cell isn't zero add one to count
+									neighbors [i, j, k] += 
+										System.Math.Min (theGrid [wi, wj, wk], 1);
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	void Step() {
+		for (int i = 0; i < nx; i++) { // for every cell
+			for (int j = 0; j < ny; j++) {
+				for (int k = 0; k < nz; k++) {
+					if (theGrid [i, j, k] > 0) { // if cell is on
+						bool stayOn = false; // assume off til proven otherwise
+						for (int l = 0; l < onRule.Length; l++) { // check allowed values
+							if (neighbors [i, j, k] == onRule [l]) {
+								stayOn = true;
+							}
+						}
+						// adjust cell value
+						if (stayOn) { 
+							theGrid [i, j, k] = System.Math.Min (onMax, theGrid [i, j, k] + 1);
+						} else {
+							theGrid [i, j, k] = 0;
+						}
+					} else { // if cell is off
+						bool turnOn = false; // assume off til proven otherwise
+						for (int l = 0; l < offRule.Length; l++) { // check allowed values
+							if (neighbors [i, j, k] == offRule [l]) {
+								turnOn = true;
+							}
+						}
+						// adjust cell value
+						if (turnOn) {
+							theGrid [i, j, k] = 1;
+						} 
+					}
+				}
+			}
+		}
+	}
+
+	void Reset() {
+		float threshhold = 0.5f; // random threshhold for creating on cell
+		for (int i = 0; i < nx; i++) // for every cell
+			for (int j = 0; j < ny; j++)
+				for (int k = 0; k < nz; k++)
+					// set cell at random
+					if (Random.Range (0.0f, 1.0f) < threshhold)
+						theGrid [i, j, k] = 1;
+					else
+						theGrid [i, j, k] = 0;
+				
+	}
+
+	void SetVisibility() {
+		for (int i = 0; i < nx; i++) { // for every cell
+			for (int j = 0; j < ny; j++) {
+				for (int k = 0; k < nz; k++) {
+					if (theGrid [i, j, k] > 0) { // if cell is on, show it
+						theObjects [i, j, k].SetActive (true);
+						Color cellColor = Color.Lerp (youngColor,oldColor, (float)theGrid [i, j, k] / onMax);
+
+						theObjects [i, j, k].GetComponent<Renderer> ().material.color = cellColor;
+					} else {
+						theObjects [i, j, k].SetActive (false);
+					}
+				}
+			}
+		}
+	}
+
+
+	// Update is called once per frame
+	void Update () {
+		// update timer by frame rate
+		time += Time.deltaTime;
+		if(time>delay) { // if its time to take a step, do so
+			Count (); // count neighbors first
+			Step (); // update values based on neighbors
+			SetVisibility (); // update view
+
+			time = 0.0f; // reset timer
+		}
+	}
+}
+
+```
+
+Make these changes to Model, and save and compile your code. Once it compiles correctly, you should be able to set your public variables in the scene. Change the transparency of your "young" color to something low, and set your young and old colors to whatever you like. Set the material public variable to a material you create that you have changed the shader to sprite->diffuse. Run and view the model. You may need to move your camera to a more useful spot, or you may want to add in a camera rig from one of our previous posts.
+
+Some interesting rules to check are the classic 2-D (as shown above), or the 5,6,7/6 rule in 3D (count in Y, set nx, ny, nz > 1, onRule = {5,6,7} offRule = {6}). 
+
+What other interesting 3D rules can you find?
 
