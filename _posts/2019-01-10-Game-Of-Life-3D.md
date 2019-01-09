@@ -381,7 +381,7 @@ public class Model : MonoBehaviour {
 
 Make these changes to Model, and save and compile your code. Once it compiles correctly, you should be able to set your public variables in the scene. Change the transparency of your "young" color to something low, and set your young and old colors to whatever you like. Set the material public variable to a material you create that you have changed the shader to sprite->diffuse. Run and view the model. You may need to move your camera to a more useful spot, or you may want to add in a camera rig from one of our previous posts.
 
-Some interesting rules to check are the classic 2-D (as shown above), or the 5,6,7/6 rule in 3D (count in Y, set nx, ny, nz > 1, onRule = {5,6,7} offRule = {6}). 
+Some interesting rules to check are the classic 2-D (as shown above), or the 5,6,7/6 rule in 3D (count in Y, set nx, ny, nz > 1, onRule = {5,6,7} offRule = {6}). You may need to also change the "threshhold" variable in Reset() to make the initial field more dense or sparse as you try different rules.
 
 What other interesting 3D rules can you find?
 
