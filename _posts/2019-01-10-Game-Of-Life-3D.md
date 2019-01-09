@@ -11,6 +11,9 @@ The Game of Life can also be an interesting activity to study in 3 dimensions.  
 
 This post will walk through creating a Unity 3D model of the Game of Life in 3D. Cells will be visualized as on (visible) or off(not visible), with color and transparency used to indicate the stability of each cell.
 
+![3D Life System](/images/blog_2019_01_10/figure1.png)
+
+
 To begin, start with a new 3D scene in Unity. Add an empty game object in the Hierarchy, and call it "Model." Attach a script component to it, also called Model.
 
 In the Model script, we are going to create an array to store our Game of Life grid, and some information about the Game of Life rules. Additionally, we will create a routine for counting neighbors, a key step in the Game of Life, which includes the ability to count in 2 or 3D (to compare to the classic 2D problem.) We will use the Update routine to step forward, so that we do not lose any steps in the visualization.
