@@ -28,7 +28,7 @@ The member variables we will need include arrays for both the grid itself as wel
 	int [] onRule = new int[]{2,3}; // On rule, if on how many neighbors to stay on
 	int [] offRule = new int[]{3}; // Off rule. if off how many neighbors to turn on
 	int onMax = 100; // maximum stored "age" of cell (to avoid overflow)
-	float delay = 0.01f; // preferred delat between frames
+	float delay = 0.01f; // preferred delay between frames
 	float time = 0.0f; // time counter for delaying frames
 	public Material theMaterial;
 	public Color youngColor = Color.green;
@@ -52,7 +52,7 @@ To set initial values, we will just use a random number call.
 	}
 ```
 
-We will use the age of each cell to determine how to draw it. Cells with zero age (turned off) will not be shown, cells that are on will be drawn with ain interpolated color based on how long htey have been on, up to some "old age".
+We will use the age of each cell to determine how to draw it. Cells with zero age (turned off) will not be shown, cells that are on will be drawn with an interpolated color based on how long they have been on, up to some "old age".
 
 ```
 	void SetVisibility() {
@@ -224,7 +224,7 @@ public class Model : MonoBehaviour {
 	int [] onRule = new int[]{2,3}; // On rule, if on how many neighbors to stay on
 	int [] offRule = new int[]{3}; // Off rule. if off how many neighbors to turn on
 	int onMax = 100; // maximum stored "age" of cell (to avoid overflow)
-	float delay = 0.01f; // preferred delat between frames
+	float delay = 0.01f; // preferred delay between frames
 	float time = 0.0f; // time counter for delaying frames
 	public Material theMaterial;
 	public Color youngColor = Color.green;
