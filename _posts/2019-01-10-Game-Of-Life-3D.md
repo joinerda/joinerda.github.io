@@ -385,3 +385,7 @@ Some interesting rules to check are the classic 2-D (as shown above), or the 5,6
 
 What other interesting 3D rules can you find?
 
+[Click here for the final Unity project](/files/blog_2019_01_10/LifeBlog.zip)
+
+[Comments on Twitter](https://twitter.com/dajoiner/status/1075842914926911488)
+
