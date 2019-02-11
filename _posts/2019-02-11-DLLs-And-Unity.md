@@ -7,7 +7,7 @@ draft: true
 
 So, I was looking at a task I've done before in Unity today but that is always a little tricky -- creating C/C++ code as a DLL that then gets imported into Unity.
 
-Why might you want to do this? First, while C# is a reasonably nice language as far as performance speed goes, it could be a lot better. It's just the way of things. (All other things being equal and in most circumstances...) A compiled language will beat an interpreted language. An optimized compiled language will beat a non-optimized compiled language. Sometimes to get the fastest routine available you have to resort to optimized compiled code, which means Fortran or C/C++. Also, if you've ever had the pleaseure of multi-language code in which one of the languages is Fortran, you know that mixing Fortran with other languages is a challenge to send the greatest of Makefile gurus running for the hills. So, C/C++ it is.
+Why might you want to do this? First, while C# is a reasonably nice language as far as performance speed goes, it could be a lot better. It's just the way of things. (All other things being equal and in most circumstances...) A compiled language will beat an interpreted language. An optimized compiled language will beat a non-optimized compiled language. Sometimes to get the fastest routine available you have to resort to optimized compiled code, which means Fortran or C/C++. Also, if you've ever had the pleasure of multi-language code in which one of the languages is Fortran, you know that mixing Fortran with other languages is a challenge to send the greatest of Makefile gurus running for the hills. So, C/C++ it is.
 
 Additionally, you may find there are numerical libraries written for optimized compiled languages you want to use. Sometimes these languages come pre-built with good C# bindings. Sometimes they don't. Sometimes they do, but the bindings get in the way of what you really want to do, and you feel the need to write your own. (Caveat to the paragraph above, sometimes these libraries actually are written in Fortran, and the few Makefile gurus who didn't run to the hills have already done the hard work of developing and creating a great ready to use DLL for us.)
 
@@ -40,11 +40,11 @@ Make sure your target name is something obvious, this can be forced by changing 
 
 (figure 3)
 
-Build your DLL. Open your file explorer window and navigate to where the DLL is built. This can be tricky. For me, my project is in C:/USers/(username)/Documents/Visual Studio 2017/Projects/DLLBlog_DLL_Project/x64/Release. (I said to choose your project name well. I chose poorly.) If you right click on the tab for an open code file, you will get an option to open in the file explorer. From yout code file, navigate up the folder tree to the root project folder, and then select x64->Release. (your results may vary. You can also try searching for your DLL from the project root as well.) Remember this location.
+Build your DLL. Open your file explorer window and navigate to where the DLL is built. This can be tricky. For me, my project is in C:/USers/(username)/Documents/Visual Studio 2017/Projects/DLLBlog_DLL_Project/x64/Release. (I said to choose your project name well. I chose poorly.) If you right click on the tab for an open code file, you will get an option to open in the file explorer. From your code file, navigate up the folder tree to the root project folder, and then select x64->Release. (your results may vary. You can also try searching for your DLL from the project root as well.) Remember this location.
 
 (figure4)
 
-Now create a new project in Unity where we will import this DLL. Create an empty object in the scene (I'm naming my empy object "Model") and attached a new script to it (I'm naming my script "Model"). Save your scene (often). Open your script in whatever editor you typically use with Unity. You will need to include the System.Runtime.InteropServices library in your C# code to call DllImport. Use the DllImport statement to define a extern method. The easiest thing is to have the method named the same as in the DLL, though you can also specify an entry point in the DllImport call. 
+Now create a new project in Unity where we will import this DLL. Create an empty object in the scene (I'm naming my empty object "Model") and attached a new script to it (I'm naming my script "Model"). Save your scene (often). Open your script in whatever editor you typically use with Unity. You will need to include the System.Runtime.InteropServices library in your C# code to call DllImport. Use the DllImport statement to define a extern method. The easiest thing is to have the method named the same as in the DLL, though you can also specify an entry point in the DllImport call. 
 
 `
 using System.Collections;
@@ -72,7 +72,7 @@ public class Model : MonoBehaviour {
 
 `
 
-Make an empty folder at the root of Assets called "plugins" and copy your DLL file into this location. NOTE due to the way Unity editor loads DLLs I have found that this only works consistently if there is not already a copy of the DLL in the folder. As a result, I typically will shut Unity down completely, and do my file transfers directly bewtween two open file explorer windows, and then re-open Unity to force a refresh. This can make debugging DLLs a bit of a pain.
+Make an empty folder at the root of Assets called "plugins" and copy your DLL file into this location. NOTE due to the way Unity editor loads DLLs I have found that this only works consistently if there is not already a copy of the DLL in the folder. As a result, I typically will shut Unity down completely, and do my file transfers directly between two open file explorer windows, and then re-open Unity to force a refresh. This can make debugging DLLs a bit of a pain.
 
 Transfer your DLL to plugins, open your project in Unity, and run it in the editor. If everything is working, the Debug.Log statement from above should cause the number "2" to print out in the console. If this worked, awesome!
 
