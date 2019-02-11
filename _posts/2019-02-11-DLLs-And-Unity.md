@@ -34,3 +34,48 @@ extern "C" __declspec(dllexport) double testing(double x) {
 }
 `
 
+Make sure your target name is something obvious, this can be forced by changing the target name in the project settings (the default is your project name, so if you chose well, so much the better.) Right click on the project in the solution explorer to open the properties, and reset the target name. I'm setting mine to "DLLBlog".
+
+(figure 3)
+
+Build your DLL. Open your file explorer window and navigate to where the DLL is built. This can be tricky. For me, my project is in C:/USers/(username)/Documents/Visual Studio 2017/Projects/DLLBlog_DLL_Project/x64/Release. (I said to choose your project name well. I chose poorly.) If you right click on the tab for an open code file, you will get an option to open in the file explorer. From yout code file, navigate up the folder tree to the root project folder, and then select x64->Release. (your results may vary. You can also try searching for your DLL from the project root as well.) Remember this location.
+
+(figure4)
+
+Now create a new project in Unity where we will import this DLL. Create an empty object in the scene (I'm naming my empy object "Model") and attached a new script to it (I'm naming my script "Model"). Save your scene (often). Open your script in whatever editor you typically use with Unity. You will need to include the System.Runtime.InteropServices library in your C# code to call DllImport. Use the DllImport statement to define a extern method. The easiest thing is to have the method named the same as in the DLL, though you can also specify an entry point in the DllImport call. 
+
+`
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using System.Runtime.InteropServices;
+
+public class Model : MonoBehaviour {
+
+	[DllImport ("DLLBlog")] // note the name should match what your DLL is called
+	private static extern double testing (double x); // note the method name should match the one in the DLL
+	                                                 // if it doesn't consider using "EntryPoint"
+
+	// Use this for initialization
+	void Start () {
+		Debug.Log (testing (1.0));
+		
+	}
+	
+	// Update is called once per frame
+	void Update () {
+		
+	}
+}
+
+`
+
+Make an empty folder at the root of Assets called "plugins" and copy your DLL file into this location. NOTE due to the way Unity editor loads DLLs I have found that this only works consistently if there is not already a copy of the DLL in the folder. As a result, I typically will shut Unity down completely, and do my file transfers directly bewtween two open file explorer windows, and then re-open Unity to force a refresh. This can make debugging DLLs a bit of a pain.
+
+Transfer your DLL to plugins, open your project in Unity, and run it in the editor. If everything is working, the Debug.Log statement from above should cause the number "2" to print out in the console. If this worked, awesome!
+
+
+
+
+
+
