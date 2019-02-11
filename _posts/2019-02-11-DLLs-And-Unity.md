@@ -2,7 +2,7 @@
 layout: post
 title: DLLs and Unity
 use_math: false
-draft: true
+draft: false
 ---
 
 So, I was looking at a task I've done before in Unity today but that is always a little tricky -- creating C/C++ code as a DLL that then gets imported into Unity.
@@ -140,7 +140,11 @@ Rinse, Lather, Repeat, and have fun with your Unity projects.
 
 
 
+[Click here for the final DLL](/files/blog_2019_02_11/DLLBloc_DLL_Project.zip)
 
+[Click here for the final Unity project](/files/blog_2019_02_11/DLLBlog.zip)
+
+[Comments on Twitter](https://twitter.com/dajoiner/status/1083090925809795072)
 
 
 
