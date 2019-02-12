@@ -28,13 +28,13 @@ This will create a simple DLL project. Double check your architecture and build 
 To test that we can build and import a simple DLL in Unity, let's first create a function "testing" that will take a double, and return its value modified in some way.
 
 (C++ code, custom DLL, Visual Studio)
-`
+```
 #include "stdafx.h"
 
 extern "C" __declspec(dllexport) double testing(double x) {
 	return x + 1.0;
 }
-`
+```
 
 Make sure your target name is something obvious, this can be forced by changing the target name in the project settings (the default is your project name, so if you chose well, so much the better.) Right click on the project in the solution explorer to open the properties, and reset the target name. I'm setting mine to "DLLBlog".
 
@@ -46,7 +46,7 @@ Build your DLL. Open your file explorer window and navigate to where the DLL is 
 
 Now create a new project in Unity where we will import this DLL. Create an empty object in the scene (I'm naming my empty object "Model") and attached a new script to it (I'm naming my script "Model"). Save your scene (often). Open your script in whatever editor you typically use with Unity. You will need to include the System.Runtime.InteropServices library in your C# code to call DllImport. Use the DllImport statement to define a extern method. The easiest thing is to have the method named the same as in the DLL, though you can also specify an entry point in the DllImport call. 
 
-`
+```
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -69,8 +69,7 @@ public class Model : MonoBehaviour {
 		
 	}
 }
-
-`
+```
 
 Make an empty folder at the root of Assets called "plugins" and copy your DLL file into this location. NOTE due to the way Unity editor loads DLLs I have found that this only works consistently if there is not already a copy of the DLL in the folder. As a result, I typically will shut Unity down completely, and do my file transfers directly between two open file explorer windows, and then re-open Unity to force a refresh. This can make debugging DLLs a bit of a pain.
 
@@ -92,7 +91,7 @@ Now, for this application, I wanted to have my external DLL also call its own ex
 
 The next step is to modify the DLL code to call the fftw library, in a way that we can be sure data is moving from Unity, to the DLL, to our additional DLL.
 
-`
+```
 // DLLBlog_DLL_Project.cpp : Defines the exported functions for the DLL application.
 //
 
@@ -130,7 +129,7 @@ extern "C" __declspec(dllexport)  double testing(double x) {
 	return x + y;
 
 }
-`
+```
 
 Make the changes to the C/C++ DLL code, build it, close Unity if you have not done so already, copy the new DLL file into the Assets/plugins floder in your Unity project using the file explorer. (We're almost there!) Now, the only additional thing we will need is a copy of 'libfftw3-3.dll' in the plugins folder of our Unity project, so that when our custom DLL calls a fftw method, the library is there. Go ahead and copy libfftw3-3.dll into Assets/plugins with our custom DLL. Restart Unity, and run the code.
 
