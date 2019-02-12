@@ -145,6 +145,8 @@ Rinse, Lather, Repeat, and have fun with your Unity projects.
 
 [Click here for the final Unity project](/files/blog_2019_02_11/DLLBlog.zip)
 
+** License note: These two zip files do include a copy of libfftw3-3.dll ( http://www.fftw.org/ ) for educational purpose only, to show how DLLs which link to fftw can be included in a Unity application, however please note that FFTW is a GPL-licensed library (_not_ L-GPL) and any derivative works would be subject to copyleft ( https://en.wikipedia.org/wiki/GNU_General_Public_License ). 
+
 [Comments on Twitter](https://twitter.com/dajoiner/status/1095056706126651396)
 
 
