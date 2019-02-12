@@ -91,6 +91,8 @@ Now, for this application, I wanted to have my external DLL also call its own ex
 
 The next step is to modify the DLL code to call the fftw library, in a way that we can be sure data is moving from Unity, to the DLL, to our additional DLL.
 
+(The code below is slightly modified from http://www.fftw.org/fftw3_doc/Complex-One_002dDimensional-DFTs.html#Complex-One_002dDimensional-DFTs )
+
 ```
 // DLLBlog_DLL_Project.cpp : Defines the exported functions for the DLL application.
 //
