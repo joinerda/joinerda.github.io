@@ -1,7 +1,7 @@
 ---
 layout: post
-title: DLLs and Unity
-use_math: false
+title: Layered Image Viewer
+use_math: true
 draft: true
 ---
 
