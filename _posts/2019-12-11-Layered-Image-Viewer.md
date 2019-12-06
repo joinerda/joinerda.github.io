@@ -5,7 +5,7 @@ use_math: true
 draft: true
 ---
 
-Additional Authors: Jessica Bernard, Gerardo Rodriguez, Suneth Tissera, Melissa Yataco
+Additional Authors: Jessica Bernard, Gerardo Rodriguez, Suneth Tissera, Melissa Yataco, Matt Niepielko
 
 Example text follows below.
 
