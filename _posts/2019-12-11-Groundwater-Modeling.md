@@ -5,6 +5,10 @@ use_math: true
 draft: true
 ---
 
+Additional Authors: Xyler Ferraris
+
+Example text follows below.
+
 So, I was looking at a task I've done before in Unity today but that is always a little tricky -- creating C/C++ code as a DLL that then gets imported into Unity.
 
 Why might you want to do this? First, while C# is a reasonably nice language as far as performance speed goes, it could be a lot better. It's just the way of things. (All other things being equal and in most circumstances...) A compiled language will beat an interpreted language. An optimized compiled language will beat a non-optimized compiled language. Sometimes to get the fastest routine available you have to resort to optimized compiled code, which means Fortran or C/C++. Also, if you've ever had the pleasure of multi-language code in which one of the languages is Fortran, you know that mixing Fortran with other languages is a challenge to send the greatest of Makefile gurus running for the hills. So, C/C++ it is.
