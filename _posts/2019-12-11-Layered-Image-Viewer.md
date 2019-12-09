@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Layered Image Viewer
-use_math: true
+use_math: false
 draft: true
 ---
 
