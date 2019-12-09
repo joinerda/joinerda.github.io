@@ -9,6 +9,14 @@ Additional Authors: Jessica Bernard, Gerardo Rodriguez, Suneth Tissera, Melissa 
 
 Example text follows below.
 
+So what happens when one colleague asks another colleague, "Can you get my data into VR?"
+
+I was talking with Matt Niepielko (Biology, New Jersey Center for Science, Technology, and Mathematics, Kean University) about some of the work we do with our students, and he started showing me data he had from a confocal microscope of stained fruit fly stem cells. In short, he wanted to see if we could bring the data up in VR using the hardware we had without needing the expensive proprietary software he was using.
+
+My plan had been (and still is) to pull in the image data, read off the data values, and build some visualziations using the UVT. But I figured before I did that, how good of an image could we get if we just stripped away the low valued pixels and made them transparent,  added some translucency to what was left over, and throw the images stacked on top of each other into a Unity scene.
+
+
+
 So, I was looking at a task I've done before in Unity today but that is always a little tricky -- creating C/C++ code as a DLL that then gets imported into Unity.
 
 Why might you want to do this? First, while C# is a reasonably nice language as far as performance speed goes, it could be a lot better. It's just the way of things. (All other things being equal and in most circumstances...) A compiled language will beat an interpreted language. An optimized compiled language will beat a non-optimized compiled language. Sometimes to get the fastest routine available you have to resort to optimized compiled code, which means Fortran or C/C++. Also, if you've ever had the pleasure of multi-language code in which one of the languages is Fortran, you know that mixing Fortran with other languages is a challenge to send the greatest of Makefile gurus running for the hills. So, C/C++ it is.
