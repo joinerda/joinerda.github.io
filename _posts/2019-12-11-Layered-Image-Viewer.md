@@ -43,9 +43,9 @@ For future modifications, some improvements that I feel would be interesting for
 	
 1. The ability to call the wand to you by raising a hand, instead of having to grab it.
 2. Basic improvements to the background scene to make it look nicer. 
-* * Placing the stack of cell images inside a room like space.
-* * Adding some lighting in this room.
-* * Restricting the movement of the user to only the area of the room.
+..* Placing the stack of cell images inside a room like space.
+..* Adding some lighting in this room.
+..* Restricting the movement of the user to only the area of the room.
 3. The ability for the user to grab, move and rotate the stack of images as a whole in the X, Y and Z direction so that they could visualize things better.
 4. Some performance optimization could also be done so that the program could run smoother on less powerful machines as well.
 
