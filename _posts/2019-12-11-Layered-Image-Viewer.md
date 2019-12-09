@@ -7,9 +7,7 @@ draft: true
 
 Additional Authors: Jessica Bernard, Gerardo Rodriguez, Suneth Tissera, Melissa Yataco, Matt Niepielko
 
-Example text follows below.
-
-So what happens when one colleague asks another colleague, "Can you get my data into VR?"
+Dave: So what happens when one colleague asks another colleague, "Can you get my data into VR?"
 
 I was talking with Matt Niepielko (Biology, New Jersey Center for Science, Technology, and Mathematics, Kean University) about some of the work we do with our students, and he started showing me data he had from a confocal microscope of stained fruit fly stem cells. In short, he wanted to see if we could bring the data up in VR using the hardware we had without needing the expensive proprietary software he was using.
 
