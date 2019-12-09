@@ -13,8 +13,18 @@ So what happens when one colleague asks another colleague, "Can you get my data 
 
 I was talking with Matt Niepielko (Biology, New Jersey Center for Science, Technology, and Mathematics, Kean University) about some of the work we do with our students, and he started showing me data he had from a confocal microscope of stained fruit fly stem cells. In short, he wanted to see if we could bring the data up in VR using the hardware we had without needing the expensive proprietary software he was using.
 
+The data looked like this.
+
+
+![Raw Fruit Fly Data](/images/blog_2019_12_11/RawFruitFlyData.png)
+
 My plan had been (and still is) to pull in the image data, read off the data values, and build some visualziations using the UVT. But I figured before I did that, how good of an image could we get if we just stripped away the low valued pixels and made them transparent,  added some translucency to what was left over, and throw the images stacked on top of each other into a Unity scene.
 
+![Layered Fruit Fly Data](/images/blog_2019_12_11/LayeredFlyData.png)
+
+We also added some enhancement of other color channels and some edge detection.
+
+![Processed Fruit Fly Data](/images/blog_2019_12_11/UnityFruitFlyData.png)
 
 
 So, I was looking at a task I've done before in Unity today but that is always a little tricky -- creating C/C++ code as a DLL that then gets imported into Unity.
