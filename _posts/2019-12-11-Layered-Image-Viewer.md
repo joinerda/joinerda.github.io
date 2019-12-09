@@ -20,7 +20,7 @@ The data looked like this.
 
 My plan had been (and still is) to pull in the image data, read off the data values, and build some visualziations using the UVT. But I figured before I did that, how good of an image could we get if we just stripped away the low valued pixels and made them transparent,  added some translucency to what was left over, and throw the images stacked on top of each other into a Unity scene.
 
-![Layered Fruit Fly Data](/images/blog_2019_12_11/LayeredFlyData.png)
+![Layered Fruit Fly Data](/images/blog_2019_12_11/LayeredFruitFlyData.png)
 
 We also added some enhancement of other color channels and some edge detection.
 
