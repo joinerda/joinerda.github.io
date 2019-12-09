@@ -7,7 +7,7 @@ draft: true
 
 Additional Authors: Jessica Bernard, Gerardo Rodriguez, Suneth Tissera, Melissa Yataco, Matt Niepielko
 
-Dave: So what happens when one colleague asks another colleague, "Can you get my data into VR?"
+**Dave:** So what happens when one colleague asks another colleague, "Can you get my data into VR?"
 
 I was talking with Matt Niepielko (Biology, New Jersey Center for Science, Technology, and Mathematics, Kean University) about some of the work we do with our students, and he started showing me data he had from a confocal microscope of stained fruit fly stem cells. In short, he wanted to see if we could bring the data up in VR using the hardware we had without needing the expensive proprietary software he was using.
 
@@ -19,11 +19,7 @@ My plan had been (and still is) to pull in the image data, read off the data val
 
 ![Layered Fruit Fly Data](/images/blog_2019_12_11/LayeredFruitFlyData.png)
 
-This is still ongoing, with questions about how to share the data, how we will make the code available, and what will get published where, but we will definitely keep updating this blog on the progress of this project.
 
-Our process essentially consisted of: Use Resources.Load to grab the images as a Texture2D. The images had to be in a resources folder in assets, and had to be marked as editable, in an RGB format, with alpha transparency, all within the editor. The individual pixels were pulled in a C# script with Texture2D.GetPixels, and RGB values below a set threshhold were set to zero, along with the alpha level of the pixel. The texture was attached to a new material on a plane, built from a call to Shader.Find on a transparent two sided diffuse shader. The y position of each plane for each image was set slightly higer to provide depth.
-
-Performance with 47 layered transparent images in close proximity has been better than 60 frames per second on the embedded video on my laptop, and significantly better on our Alienware laptop development rig with an Nvidia Geforce 1070.
 
 **Gerardo Rodriguez:**
 	This entire project was a great learning opportunity and it provided me with some level of experience i would of never have received elsewhere. My view of VR gear before this project was that it was mainly used for entertainment purposes such as a personal theater or games. This project however proved otherwise as it showed that Virtual Reality gear can be pretty versatile in terms of what it can do. While you still need a beefed up machine to run VR software, the opportunities it has brought to the scientific field are astonishing. The gear itself is also relatively cheap, obviously not everyone can afford a $600 headset, but it beats the $25,000 or so piece of machine or software that a university might opt for. The VR market is also growing, as new iterations of the gear are being released and updated constantly. So much so that we know have much cheaper models that go for less than $500. 
@@ -64,6 +60,13 @@ run smoother on less powerful machines as well.
 
 
 **Jessica Bernard:** As a whole, this was a great and valuable learning experience.
+
+
+**Dave:** This is still ongoing, with questions about how to share the data, how we will make the code available, and what will get published where, but we will definitely keep updating this blog on the progress of this project.
+
+Our process essentially consisted of: Use Resources.Load to grab the images as a Texture2D. The images had to be in a resources folder in assets, and had to be marked as editable, in an RGB format, with alpha transparency, all within the editor. The individual pixels were pulled in a C# script with Texture2D.GetPixels, and RGB values below a set threshhold were set to zero, along with the alpha level of the pixel. The texture was attached to a new material on a plane, built from a call to Shader.Find on a transparent two sided diffuse shader. The y position of each plane for each image was set slightly higer to provide depth.
+
+Performance with 47 layered transparent images in close proximity has been better than 60 frames per second on the embedded video on my laptop, and significantly better on our Alienware laptop development rig with an Nvidia Geforce 1070.
 
 ![Viewer Poster](/images/blog_2019_12_11/ConfocalData.png)
 
