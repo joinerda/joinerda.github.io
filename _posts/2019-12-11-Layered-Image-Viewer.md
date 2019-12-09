@@ -28,3 +28,7 @@ Our process essentially consisted of: Use Resources.Load to grab the images as a
 Performance with 47 layered transparent images in close proximity has been better than 60 frames per second on the embedded video on my laptop, and significantly better on our Alienware laptop development rig with an Nvidia Geforce 1070.
 
 
+![Viewer Poster](/images/blog_2019_12_11/ConfocalData.png)
+
+
+
