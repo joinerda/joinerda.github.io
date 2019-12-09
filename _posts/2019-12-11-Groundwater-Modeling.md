@@ -19,3 +19,6 @@ Xyler: (Personal thoughts of the Unity engine) It amazed me after working with U
 
 Dave: This one is still in progress, so no code to share yet, but we will release something soon.
 
+![Groundwater Model Poster](/images/blog_2019_12_11/GroundwaterPoster.png)
+
+
