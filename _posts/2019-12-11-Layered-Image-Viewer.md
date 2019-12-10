@@ -24,6 +24,10 @@ My plan had been (and still is) to pull in the image data, read off the data val
 
 **Melissa Yataco:** At the start of the project, it was very intimidating to think it was possible for us to actually write a program that would integrate oculus with unity and be able to mark and erase the cells. I struggled along the way due to the fact that I've never worked with oculus before and that I'm not familiar with C sharp too much. Since I wasn’t that familiar with coding I focused more on the appearance of the cells because unity was easier for me to navigate through. Despite my struggles, I was still able to accomplish the goal of the project with the assistance of my classmates, who really helped me along the way and made the class fun. 
 
+**Jessica Bernard:** As a whole, this was a great and valuable learning experience. Although I was a bit familiar with how to do this sort of project from my RFI last year, I was still a bit uncertain about taking on a project like this, due to feeling that I did not have enough experience in order to really help. However as we actually started the project it seemed to get easier, and I was able to understand what was needed.
+
+The main aspect that I worked on for the project was working to get the hands to generate the marker that was later used with the wand. The markers, aptly named Trackers in the project, were made in order to mark down any instances of an individual cell that the user saw. They are small spheres that are generated from code placed into each hand. However there were a few issues that arose, which is why I later changed it to just the right hand due to issues mostly having to do with the direction it was being generated in the left hand. Later it was adjusted to work with the wand that was later implemented. 
+
 **Suneth Tissera:** Before the start of this project, I had very little experience with virtual reality and I was unsure of what I’d be able to help with. But after a few days, we as a team managed to grasp the foundations on how the Oculus Integration toolkit worked with Unity and we were able to use it to help improve the Layered Image Viewer Project that Dr. Joiner was working on.
 
 **Gerardo Rodriguez:** With the use of just the VR headset and unity, we were able to visualize scientific data count stem cells. At the moment it can only visualize a set of images provided to us but hopefully with future updates, it’ll be able to handle any set of given images that can be looked at in a 3D space with the help of UVT. For me the most amazing thing out of all this is the visualization of scientific data in a 3D space. VR takes this to a whole new level because we can implement ways for the end user to interact with this data, such as our project with the ability to erase and set markers for each cell. I can see it now, a future where doctors can slip on a VR headset and view a patient's arteries or something or the visualization of weather in a 3D space. 
@@ -51,13 +55,8 @@ For future modifications, some improvements that I feel would be interesting for
 3. The ability for the user to grab, move and rotate the stack of images as a whole in the X, Y and Z direction so that they could visualize things better.
 4. Some performance optimization could also be done so that the program could run smoother on less powerful machines as well.
 
-**Jessica Bernard:** As a whole, this was a great and valuable learning experience. Although I was a bit familiar with how to do this sort of project from my RFI last year, I was still a bit uncertain about taking on a project like this, due to feeling that I did not have enough experience in order to really help. However as we actually started the project it seemed to get easier, and I was able to understand what was needed.
 
-Due to scheduling issues I ended up being separated from the others involved in the project. However even though this was the case Dr. Joiner did help a lot when it came to understanding what the others were up to and the issues that needed help fixing. 
-
-The main aspect that I worked on for the project was working to get the hands to generate the marker that was later used with the wand. The markers, aptly named Trackers in the project, were made in order to mark down any instances of an individual cell that the user saw. They are small spheres that are generated from code placed into each hand. However there were a few issues that arose, which is why I later changed it to just the right hand due to issues mostly having to do with the direction it was being generated in the left hand. Later it was adjusted to work with the wand that was later implemented. 
-
-Some ideas for future features could be:
+**Jessica Bernard:** Some ideas for future features could be:
  * A way to count how many trackers are generated in the scene
  * A way to have the wand just come to your hand and center itself perfectly
  * The ability to scale and rotate the stacked images to make sure to get as many cells as possible(the ones that may overlap or even some that hide underneath)
