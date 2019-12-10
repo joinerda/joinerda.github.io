@@ -2,7 +2,7 @@
 layout: post
 title: Layered Image Viewer
 use_math: false
-draft: true
+draft: false
 ---
 
 Additional Authors: Jessica Bernard, Gerardo Rodriguez, Suneth Tissera, Melissa Yataco, Matt Niepielko
