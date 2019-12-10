@@ -2,7 +2,7 @@
 layout: post
 title: Groundwater Modeling
 use_math: true
-draft: true
+draft: false
 ---
 
 Additional Authors: Xyler Ferraris
